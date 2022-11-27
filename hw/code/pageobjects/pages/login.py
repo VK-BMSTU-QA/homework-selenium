@@ -5,71 +5,61 @@ from pageobjects.base.page import Page
 
 class LoginPage(Page):
 
-    @property
-    def btn_collection(self):
-        return self.driver.find_element(by=By.CLASS_NAME , value="collection")
 
     @property
-    def btn_premier(self):
-        return self.driver.find_element(by=By.CLASS_NAME , value="announced__image")
-
-
-    @property
-    def btn_collections_container(self):
-        return len(self.driver.find_elements(by=By.CLASS_NAME , value="collection"))
-
-    @property
-    def btn_genres_container(self):
-        return len(self.driver.find_elements(by=By.CLASS_NAME , value="genre-poster"))
-
-    @property
-    def btn_genre(self):
-        return self.driver.find_element(by=By.CLASS_NAME, value="genre-poster")
+    def member_link(self):
+        # return self.driver.find_element(by=By.CLASS_NAME, value="github-hrefs")[1].text
+        return self.driver.find_element_by_link_text("Киселев Виктор")
     
-
     @property
-    def btn_login(self):
-        return self.driver.find_element(by=By.CLASS_NAME , value="navbar__login-btn")
-
-    @property
-    def login_input(self):
-        return self.driver.find_element(by=By.ID , value="email")
-
-    @property
-    def password_input(self):
-        return self.driver.find_element(by=By.ID , value="password")
+    def GH_image(self):
+        # return self.driver.find_element(by=By.CLASS_NAME, value="github-hrefs")[1].text
+        footer = self.driver.find_element(by=By.ID, value="footer")
+        social = footer.find_element(by=By.CLASS_NAME, value="social")
+        return social.find_element_by_xpath('img')
 
     @property
     def btn_enter(self):
-        return self.driver.find_element(by=By.CLASS_NAME , value="auth__btn__input")
+        return self.driver.find_element(by=By.CLASS_NAME, value="auth__btn__input")
+
+    @property
+    def input_email(self):
+        return self.driver.find_element(by=By.ID, value="email")
+
+    @property
+    def input_password(self):
+        return self.driver.find_element(by=By.ID, value="password")
     
-    @property
-    def btn_profile(self):
-        return self.driver.find_element(by=By.CLASS_NAME , value="user-block__profile-href")
+    def get_error_email(self):
+        input =  self.driver.find_element(by=By.ID, value="email")
+        td_p_input = input.find_element_by_xpath('..')
+        return td_p_input.find_element(by=By.CLASS_NAME, value="email").text
 
-    @property
-    def btn_profile_submenu(self):
-        return self.driver.find_element(by=By.CLASS_NAME , value="user-block__submenu__block")
-
-    @property
-    def btn_logout_submenu(self):
-        return self.driver.find_element(by=By.CLASS_NAME , value="user-block").find_element(by=By.CLASS_NAME, value="user-block__logout-btn")
-    
-    def open(self, *args, **kwargs):
-        super().open("/login")
-
-    @property
-    def get_error(self):
-        return self.driver.find_elements(by=By.CLASS_NAME, value="auth-input__head__error")
+    def get_error_password(self):
+        input =  self.driver.find_element(by=By.ID, value="password")
+        td_p_input = input.find_element_by_xpath('..')
+        return td_p_input.find_element(by=By.CLASS_NAME, value="password").text
         
+    def open(self, *args, **kwargs):
+        super().open("login")
 
-    def fill_login(self, login):
-        self.login_input.send_keys(login)
+    def go_to_link(self):
+        self.member_link.click()
+
+    def go_to_GH(self):
+        self.GH_image.click()
+
+    def fill_email(self, email):
+        self.input_email.clear()
+        self.input_email.send_keys(email)
+        self.btn_enter.click()
 
     def fill_password(self, password):
-        self.password_input.send_keys(password)
-
+        self.input_password.clear()
+        self.input_password.send_keys(password)
+        self.btn_enter.click()
+    
     def login(self, login, password):
-        self.fill_login(login)
+        self.fill_email(login)
         self.fill_password(password)
         self.btn_enter.click()
