@@ -21,9 +21,12 @@ class SignUpPage(Page):
     def input_login(self):
         return self.driver.find_element(by=By.ID, value="input_login")
     
+    
+
     def get_error(self):
         return self.driver.find_element(by=By.CLASS_NAME, value="auth__block_error_text").text
 
+    
     def open(self, *args, **kwargs):
         super().open("signup")
 

@@ -3,7 +3,7 @@ import selenium.webdriver
 
 
 class Page(object):
-    BASE_URL = 'https://planexa.ru/'
+    BASE_URL = 'https://park-akino.ru/'
 
     def __init__(self, driver):
         self.driver = driver 

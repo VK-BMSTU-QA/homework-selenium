@@ -2,8 +2,8 @@ from selenium import webdriver
 import os
 
 authorization_data = {
-    "login": "planexa",
-    "password": "planexa",
-    "wrong_login": "test123124",
-    "wrong_password": "12876376943",
+    "login": "akinoakino@mail.ru",
+    "password": "akinoakino2022",
+    "wrong_login": "test1",
+    "wrong_password": "test222",
 }
