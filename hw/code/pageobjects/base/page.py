@@ -1,5 +1,4 @@
 from urllib.parse import urljoin
-import selenium.webdriver
 
 
 class Page(object):
