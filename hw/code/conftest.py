@@ -1,7 +1,7 @@
 import pytest
 from selenium import webdriver
 
-EXEC_PATH = r"./chromedriver"
+EXEC_PATH = r"/mnt/d/techpark/homework-selenium/chromedriver.exe"
 
 @pytest.fixture(scope="session")
 def browser():
