@@ -5,7 +5,6 @@ from pageobjects.base.page import Page
 
 class LoginPage(Page):
 
-
     @property
     def member_link(self):
         # return self.driver.find_element(by=By.CLASS_NAME, value="github-hrefs")[1].text

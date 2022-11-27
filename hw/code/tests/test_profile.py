@@ -1,48 +1,62 @@
-from pageobjects.components.header import Header
-from pageobjects.pages.base import BasePage
-
+from pageobjects.pages.profile import ProfilePage
+from pageobjects.pages.login import LoginPage
+# import pyautogui
+import os
+import time
 from tests.base_test_case import BaseTestCase
 
 
-class NavbarTest(BaseTestCase):
+class ProfileTest(BaseTestCase):
     def setUp(self):
         super().setUp()
-        self.page = (self.driver)
+        self.page = ProfilePage(self.driver)
+        self.loginPage = LoginPage(self.driver)
+        self.loginPage.open()
+        self.loginPage.login(os.environ.get('AKINO_LOGIN'), os.environ.get('AKINO_PASSWORD'))
+        self.page.btn_profile.click()
 
+    def test_profile_settings(self):
+        self.page.btn_change.click()
 
-    def test_click(self):
-            self.page.open()
+        self.assertEqual(self.page.btn_save_name.is_displayed(), True)
+        self.assertEqual(self.page.btn_close_settings.is_displayed(), True)
 
-            self.page.btn_login.click()
-            self.assertEqual("https://park-akino.ru/login", self.driver.current_url)
+        self.page.btn_close_settings.click()
+        self.assertEqual(self.page.btn_change.is_displayed(), True)
 
-            self.page.btn_logo.click()
-            self.assertEqual("https://park-akino.ru/", self.driver.current_url)
-            self.page.btn_collections.click()
-            self.assertEqual("https://park-akino.ru/collections", self.driver.current_url)
+        self.page.btn_change.click()
+        self.page.btn_save_name.click()
+        self.assertEqual(self.page.error_text, "Заполните поле!")
 
-            self.assertEqual(self.page.btn_collections.value_of_css_property('color'), "rgba(171, 35, 255, 1)")
+    def test_change_name(self):
+        self.page.btn_change.click()
+        newName = "kostya"
+        self.page.input_name.send_keys(newName)
+        self.page.btn_save_name.click()
+        self.assertEqual(self.page.name.text, newName)
 
-            self.page.btn_genres.click()
-            self.assertEqual(self.page.btn_genres.value_of_css_property('color'), "rgba(171, 35, 255, 1)")
+    def test_bookmark_click(self):
+        self.page.btn_single_bookmark.click()
+        self.assertTrue('https://park-akino.ru/bookmarks/' in self.page.driver.current_url)
 
-            self.assertEqual("https://park-akino.ru/genres", self.driver.current_url)
+    def test_film_redirect(self):
+        self.page.btn_movie_poster.click()
+        self.assertTrue('https://park-akino.ru/movies/' in self.page.driver.current_url)
 
-            self.page.btn_premiers.click()
-            self.assertEqual(self.page.btn_premiers.value_of_css_property('color'), "rgba(171, 35, 255, 1)")
+    def test_popup_interaction(self):
+        self.page.btn_popup_open.click()
+        self.assertEqual(self.page.popup_container.is_displayed(), True)
 
-            self.assertEqual("https://park-akino.ru/premiers", self.driver.current_url)
+        self.page.btn_create_bookmark.click()
+        self.assertEqual(self.page.popup_container.is_displayed(), True)
 
-            self.page.btn_search.click()
-            self.assertEqual("https://park-akino.ru/search/", self.driver.current_url)
+        self.page.btn_popup_close.click()
+        time.sleep(0.5)
+        self.assertEqual(self.page.popup_container.is_displayed(), False)
 
-        def test_profile(self):
-            self.page.open()
-            self.page.login(authorization_data['login'], authorization_data['password'])
-            ActionChains(self.driver).move_to_element(self.page.btn_profile).perform()
-            self.page.btn_profile_submenu.click()
-
-            self.assertEqual("https://park-akino.ru/profile/58", self.driver.current_url)
-
-            self.page.btn_logout_submenu.click()
-            self.assertEqual("https://park-akino.ru/profile/58", self.driver.current_url)
+    def test_popup_create_bookmark(self):
+        self.page.btn_popup_open.click()
+        newBookmarkTitle = str(time.time())
+        self.page.input_popup.send_keys(newBookmarkTitle)
+        self.page.btn_create_bookmark.click()
+        self.assertEqual(self.page.bookmark_title(newBookmarkTitle), True)
