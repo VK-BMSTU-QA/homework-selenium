@@ -10,9 +10,9 @@ class BaseTestCase(unittest.TestCase):
 
     def setUp(self):
         chrome_options = Options()
-        chrome_options.add_argument('--headless')
+        # chrome_options.add_argument('--headless')
         chrome_options.add_argument('--log-level=3')
-        
+
         self.driver = webdriver.Chrome(
             executable_path="chromedriver",
             options=chrome_options

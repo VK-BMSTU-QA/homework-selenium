@@ -13,7 +13,9 @@ class ProfileTest(BaseTestCase):
         self.loginPage = LoginPage(self.driver)
         self.loginPage.open()
         self.loginPage.login(os.environ.get('AKINO_LOGIN'), os.environ.get('AKINO_PASSWORD'))
+        time.sleep(1)
         self.page.btn_profile.click()
+        time.sleep(1)
 
     def test_profile_settings(self):
         self.page.btn_change.click()
