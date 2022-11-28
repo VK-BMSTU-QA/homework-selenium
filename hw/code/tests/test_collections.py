@@ -1,18 +1,32 @@
-from pageobjects.pages.collection import CollectionPage
+from pageobjects.pages.collections import CollectionsPage
 from tests.base_test_case import BaseTestCase
 
-class CollectionTest(BaseTestCase):
+class CollectionsTest(BaseTestCase):
     def setUp(self):
         super().setUp()
-        self.page = CollectionPage(self.driver)
+        self.page = CollectionsPage(self.driver)
 
-    def test_num_cards(self):
-        self.page.open(1)
-        tmp = self.page.movie_cards
-        self.assertFalse(len(tmp) == 0, 'Amount of movie cards is greater than zero')
-    
-    def test_valid_link(self):
-        self.page.open(1)
-        self.page.movie_img.click()
-        print(self.page.driver.current_url)
-        self.assertTrue('https://park-akino.ru/movies/' in self.page.driver.current_url, 'Correct URL after redirect')
+    def test_correct_navigation(self):
+        self.page.open()    
+
+        self.page.btn_navbar_collections.click()
+        self.page.btn_collection.click()
+        self.assertEqual("https://park-akino.ru/collections/1", self.driver.current_url)
+
+
+        self.page.btn_navbar_genres.click()
+        self.page.btn_genre.click()
+        self.assertEqual("https://park-akino.ru/genres/action", self.driver.current_url)
+
+        self.page.btn_navbar_premiers.click()
+        self.page.btn_premier.click()
+        self.assertEqual("https://park-akino.ru/announced/8", self.driver.current_url)
+        
+    def test_correct_count(self):
+        self.page.open()    
+
+        self.page.btn_navbar_collections.click()
+        self.assertEqual(self.page.btn_collections_container, 12)
+
+        self.page.btn_navbar_genres.click()
+        self.assertEqual(self.page.btn_genres_container, 20)

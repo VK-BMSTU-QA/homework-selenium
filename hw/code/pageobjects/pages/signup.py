@@ -30,10 +30,6 @@ class SignUpPage(Page):
         td_p_input = input.find_element_by_xpath('..')
         return td_p_input.find_element(by=By.CLASS_NAME, value="username").text
 
-        
-
-        
-    
     def get_error_email(self):
         input =  self.driver.find_element(by=By.ID, value="email")
         td_p_input = input.find_element_by_xpath('..')
