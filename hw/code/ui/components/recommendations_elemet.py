@@ -5,4 +5,4 @@ from ui.paths import paths
 
 class RecommendationsElement(BaseComponent):
     locators = locators.RecommendationsLocators()
-    PATH = paths.MAIN
+    PATH = paths.GUAVA_DISHES
