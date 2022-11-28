@@ -1,0 +1,81 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="5">
+            <item index="0" class="java.lang.String" itemvalue="field.field.required" />
+            <item index="1" class="java.lang.String" itemvalue="post" />
+            <item index="2" class="java.lang.String" itemvalue="blog:post_share" />
+            <item index="3" class="java.lang.String" itemvalue="css" />
+            <item index="4" class="java.lang.String" itemvalue="static" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="4">
+            <item index="0" class="java.lang.String" itemvalue="pillow" />
+            <item index="1" class="java.lang.String" itemvalue="cffi" />
+            <item index="2" class="java.lang.String" itemvalue="wheel" />
+            <item index="3" class="java.lang.String" itemvalue="setuptools" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8NamingInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="N806" />
+          <option value="N802" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="posts.models.Post.objects" />
+          <option value="posts.tests.test_views.PostsPagesTests.post" />
+          <option value="posts.tests.test_views.PostsPagesTests.user" />
+          <option value="posts.models.Group.objects" />
+          <option value="posts.tests.test_views.PostsPagesTests.group" />
+          <option value="posts.models.Comment.objects" />
+          <option value="posts.models.Follow.objects" />
+          <option value="posts.tests.test_views.PostsPagesTests.uploaded" />
+          <option value="posts.tests.test_views.PaginatorViewsTest.authorized_client1" />
+          <option value="posts.tests.test_views.PaginatorViewsTest.authorized_client_1" />
+          <option value="posts.tests.test_views.PostsPagesTests.comment" />
+          <option value="posts.tests.test_models.PostsModelTest.post" />
+          <option value="posts.tests.test_models.PostsModelTest.comment" />
+          <option value="posts.tests.test_models.PostsModelTest.group" />
+          <option value="posts.tests.test_views.PostsPagesTests.authorized_client1" />
+          <option value="posts.models.Post.posts_set" />
+          <option value="set.__getitem__" />
+          <option value="tutorial.quickstart.views.quickstart" />
+          <option value="tutorial.tutorial.urls.quickstart" />
+          <option value="my_api.new_api.models.User.objects" />
+          <option value="cats.models.Cat.objects" />
+          <option value="type.without_ui" />
+          <option value="yatube_api.api.serializers.posts" />
+          <option value="reviews.models.Review.objects" />
+          <option value="django.db.models.fields.DateTimeField.year" />
+          <option value="django.db.models.fields.DateTimeField.month" />
+          <option value="django.db.models.fields.DateTimeField.day" />
+          <option value="mysite.blog.views.MyPaginator.GET" />
+          <option value="Blog.mysite.blog.models.Comment.objects" />
+          <option value="Blog.mysite.blog.models.taggit" />
+          <option value="list.len" />
+          <option value="typing.Iterator.__getitem__" />
+          <option value="int.__getitem__" />
+          <option value="str.isdigital" />
+          <option value="app.models.Profile.objects" />
+          <option value="str.__truediv__" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

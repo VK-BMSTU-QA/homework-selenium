@@ -76,6 +76,9 @@ class BaseComponent(object):
     def has_value(self, elem, value):
         return elem.get_attribute("value") == value
 
+    def has_value_no_input(self, elem, value):
+        return elem.text == value
+
     def find_all_elems(self, locator, timeout=default_timeout):
         return self.wait(timeout).until(EC.presence_of_all_elements_located(locator))
 

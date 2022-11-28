@@ -8,6 +8,12 @@ from ui.components.login_page import LoginPage
 from _pytest.fixtures import FixtureRequest
 import os
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
+PHONE = os.getenv('PHONE')
+CODE = os.getenv('CODE')
 
 def get_driver(browser_name):
     if browser_name == "chrome":
