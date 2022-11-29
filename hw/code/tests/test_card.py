@@ -28,17 +28,17 @@ class TestMenuPage(BaseCase):
         assert self.page.is_url(paths.CART)
         assert self.page.is_visible(self.page.locators.CART)
         element_count = self.page.find(self.page.locators.COUNT_OF_DISHES)
-        assert self.page.has_value_no_input(element_count, "1")
+        assert self.page.has_text(element_count, "1")
         element_price = self.page.find(self.page.locators.PRICE)
-        assert self.page.has_value_no_input(element_price, "600 ₽")
+        assert self.page.has_text(element_price, "600 ₽")
 
     def test_button_plus(self, authorize, set_address):
         self.page.click(self.page.locators.ADD_TO_CART_BUTTON)
         self.page.click(self.page.locators.INCREMENT_DISH_COUNT)
         element_count = self.page.find(self.page.locators.COUNT_OF_DISHES)
-        assert self.page.has_value_no_input(element_count, "2")
+        assert self.page.has_text(element_count, "2")
         element_price = self.page.find(self.page.locators.PRICE)
-        assert self.page.has_value_no_input(element_price, "1200 ₽")
+        assert self.page.has_text(element_price, "1200 ₽")
 
     def test_added_dish_in_card_for_page_restaurants(self, authorize, set_address):
         self.page.click(self.page.locators.ADD_TO_CART_BUTTON)
@@ -54,10 +54,10 @@ class TestMenuPage(BaseCase):
         assert self.page.is_visible(self.page.locators.SECOND_DISH_IN_CARD)
 
         element_count = self.page.find(self.page.locators.COUNT_SECOND_DISHES)
-        assert self.page.has_value_no_input(element_count, "2")
+        assert self.page.has_text(element_count, "2")
 
         element_price = self.page.find(self.page.locators.PRICE)
-        assert self.page.has_value_no_input(element_price, "1760 ₽")
+        assert self.page.has_text(element_price, "1760 ₽")
 
     def test_card_order(self, authorize, set_address):
         self.page.click(self.page.locators.ADD_TO_CART_BUTTON)
