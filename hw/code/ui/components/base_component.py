@@ -1,5 +1,5 @@
 import time
-from selenium.common.exceptions import TimeoutException, WebDriverException
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
@@ -123,11 +123,8 @@ class BaseComponent(object):
 
     @contextmanager
     def wait_for_reload_elem(self, locator, timeout=default_timeout):
-        # time.sleep(3)
         old_elem = self.find(locator)
-        # time.sleep(3)
         yield
-        # time.sleep(3)
         WebDriverWait(self.driver, timeout).until(EC.staleness_of(old_elem))
 
     def click_after(self, locator, dy, timeout=default_timeout):

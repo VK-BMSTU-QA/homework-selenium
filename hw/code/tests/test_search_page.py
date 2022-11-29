@@ -1,11 +1,7 @@
 import pytest
 from ui.paths import paths
-from selenium.webdriver.support import expected_conditions as EC
 from ui.components.search_page import SearchPage
-from ui.locators import locators
 from ui.base_case.base_case import BaseCase
-from _pytest.fixtures import FixtureRequest
-import time
 
 
 class TestSearch(BaseCase):

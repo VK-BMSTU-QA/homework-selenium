@@ -1,11 +1,7 @@
 import pytest
 from ui.paths import paths
-from selenium.webdriver.support import expected_conditions as EC
 from ui.components.order_history_page import OrderHistoryPage
-from ui.locators import locators
 from ui.base_case.base_case import BaseCase
-from _pytest.fixtures import FixtureRequest
-import time
 
 
 class TestOrderHistory(BaseCase):

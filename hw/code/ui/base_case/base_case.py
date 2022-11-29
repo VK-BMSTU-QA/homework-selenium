@@ -1,12 +1,8 @@
-import os
-import time
 import pytest
 from _pytest.fixtures import FixtureRequest
 from ui.components.base_component import BaseComponent
 from _pytest.fixtures import FixtureRequest
-from ui.components.header import HeaderComponent
 from ui.paths import paths
-from selenium.webdriver.support import expected_conditions as EC
 
 
 class BaseCase:
@@ -27,18 +23,6 @@ class BaseCase:
             self.driver.add_cookie(cookie)
 
         self.driver.refresh()
-
-    # @pytest.fixture(scope="function")
-    # def set_address(self):
-    #     self.page.click(self.page.locators.ADDRESS_INPUT)
-    #     with self.page.wait_for_reload_elem(self.page.locators.SUGGESTS):
-    #         self.page.send_keys(self.page.locators.ADDRESS_INPUT, "Москва, ")
-    #     # with self.page.wait_for_reload_elem(self.page.locators.SUGGESTS):
-    #     self.page.click(self.page.locators.SUGGESTS)
-    #     # with self.page.wait_for_reload_elem(self.page.locators.SUGGESTS):
-    #         # self.page.click(self.page.locators.SUGGESTS)
-    #     # with self.page.wait_for_reload_elem(self.page.locators.SUGGESTS):
-    #         # self.page.click(self.page.locators.SUGGESTS)
 
     @pytest.fixture(scope="function")
     def set_address(self):

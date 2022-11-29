@@ -5,7 +5,6 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 from ui.components.login_page import LoginPage
-from _pytest.fixtures import FixtureRequest
 import os
 
 
