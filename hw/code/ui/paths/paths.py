@@ -12,4 +12,6 @@ ORDERING = '/ordering'
 CART = "/shoppingCart"
 SUSHI_CATEGORY = "/main/Суши"
 PIZZA_CATEGORY = "/main/Пицца"
+ORDER = "/ordering"
+COMMENTS_PAGE = "/comments/shashlychnaia-24"
 SEARCH = "/main"

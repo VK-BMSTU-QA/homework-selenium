@@ -87,6 +87,7 @@ class BaseComponent(object):
     def has_text(self, elem, value):
         return elem.text == value
 
+
     def get_elem_text(self, locator, timeout=default_timeout):
         started = time.time()
         while time.time() - started < timeout:
