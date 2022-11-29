@@ -11,11 +11,25 @@ class TestRegister(BaseCase):
         self.driver = driver
         self.page = RegisterPage(driver, url_config)
 
-    def test_input_empty_elements(self):
+    def test_input_empty_phone(self):
+        self.page.send_keys(self.page.locators.NAME_INPUT, 'user')
+        self.page.send_keys(self.page.locators.EMAIL_INPUT, 'user@yandex.ru')
         self.page.click(self.page.locators.REGISTER_BUTTON)
 
         assert self.page.is_visible(self.page.locators.EMPTY_PHONE_ERROR)
+
+    def test_input_empty_name(self):
+        self.page.send_keys(self.page.locators.PHONE_INPUT, '+7(901)502-04-56')
+        self.page.send_keys(self.page.locators.EMAIL_INPUT, 'user@yandex.ru')
+        self.page.click(self.page.locators.REGISTER_BUTTON)
+
         assert self.page.is_visible(self.page.locators.EMPTY_NAME_ERROR)
+
+    def test_input_empty_email(self):
+        self.page.send_keys(self.page.locators.PHONE_INPUT, '+7(901)502-04-56')
+        self.page.send_keys(self.page.locators.NAME_INPUT, 'user')
+        self.page.click(self.page.locators.REGISTER_BUTTON)
+
         assert self.page.is_visible(self.page.locators.EMPTY_EMAIL_ERROR)
 
     def test_input_phone_with_small_length(self):

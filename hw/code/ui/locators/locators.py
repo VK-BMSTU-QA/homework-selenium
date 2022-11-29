@@ -90,7 +90,6 @@ class ProfileLocators(BasePageLocators):
 class LogoutLocators(BasePageLocators):
     PROFILE_BUTTON = (By.ID, 'profilePreviewButton')
     LOGOUT_BUTTON = (By.XPATH, '//section[@id="modal"]//div[@class="profile-menu__point logoutButton"]')
-    PAY_BUTTON = (By.ID, 'buttonPay')
 
 
 class OrderingLocators(BasePageLocators):
