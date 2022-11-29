@@ -19,8 +19,8 @@ class TestMenuPage(BaseCase):
         self.page.click(self.page.locators.COMMENTS_BLOCK)
         assert self.page.is_url(paths.COMMENTS_PAGE)
 
-    # def test_added_comment(self, authorize, set_address):
-    #     self.page.click(self.page.locators.RESTAURANTS)
-    #     self.page.click(self.page.locators.ADD_TO_CART_BUTTON)
-    #     self.page.click(self.page.locators.ORDER_BUTTON)
-    #     assert self.page.is_url(paths.ORDER)
+    def test_added_comment(self, authorize, set_address, order):
+        self.page.click(self.page.locators.BUTTON_OPEN_CLOSE)
+        self.page.click(self.page.locators.SEND_COMMENT_BUTTON)
+
+

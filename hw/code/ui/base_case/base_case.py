@@ -48,3 +48,12 @@ class BaseCase:
         self.page.click(self.page.locators.GUAVA_RESTAURANT_IMG)
         self.page.click(self.page.locators.ADD_TO_CART_BUTTON)
         self.page.click(self.page.locators.LOGO_BUTTON) #TODO возврат на изначальную страницу
+
+    @pytest.fixture(scope="function")
+    def order(self, set_address):
+        self.page.open_path(paths.GUAVA_DISHES)
+        self.page.click(self.page.locators.ADD_TO_CART_BUTTON)
+        self.page.click(self.page.locators.ORDER_BUTTON)
+        self.page.click(self.page.locators.PAY_BUTTON)
+        self.page.wait_visability_of_elem(self.page.locators.ORDER_HISTORY_HEADER)
+        self.page.open()

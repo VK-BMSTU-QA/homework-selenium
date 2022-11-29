@@ -7,11 +7,10 @@ class BasePageLocators:
     CART = (By.CLASS_NAME, "shopping-cart")
     GUAVA_RESTAURANT_IMG = (By.XPATH, '//img[@class="rest-icon__rest_img" and @alt="Guava"]')
     ADD_TO_CART_BUTTON = (By.CLASS_NAME, "dish-icon__button-add-to-order")
-    # PROFILE_MENU = (By.CLASS_NAME, "profile-preview__menu")
-    # LOGIN_MODAL = (By.ID, "modal")
-    # SUGGESTS = (By.CLASS_NAME, "suggest-form__suggest-row")
-    # ADDRESS_INPUT = (By.ID, "suggestsSearch")
+    ORDER_BUTTON = (By.ID, "orderButton")
+    PAY_BUTTON = (By.ID, "buttonPay")
     LOGO_BUTTON = (By.XPATH, '//a[@class="main-button__controller" and text() = "obringTo"]')
+    ORDER_HISTORY_HEADER = (By.XPATH, '//h1[@class="form-title__title-name" and text() = "Мои заказы"]')
 
 
 class HeaderLocators(BasePageLocators):
@@ -89,5 +88,6 @@ class PromoCodesLocators(BasePageLocators):
 class CommentsLocators(BasePageLocators):
     RESTAURANTS = (By.CLASS_NAME, 'rest-icon__rest_img')
     COMMENTS_BLOCK = (By.CLASS_NAME, 'comments-block__value')
-    ORDER_BUTTON = (By.ID, "orderButton")
-    ADD_TO_CART_BUTTON = (By.CLASS_NAME, 'dish-icon__button-add-to-order')
+    BUTTON_OPEN_CLOSE = (By.CLASS_NAME, 'order-info__move-controller')
+    SEND_COMMENT_BUTTON = (By.CLASS_NAME, 'comment-button')
+
