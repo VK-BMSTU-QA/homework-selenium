@@ -58,6 +58,9 @@ class BaseComponent(object):
     def wait_visability_of_elem(self, locator, timeout=default_timeout):
         return self.wait(timeout).until(EC.visibility_of_element_located(locator))
 
+    def wait_invisability_of_elem(self, locator, timeout=default_timeout):
+        return self.wait(timeout).until(EC.invisibility_of_element_located(locator))
+
     def is_visible(self, locator, timeout=mini_timeout):
         try:
             self.wait(timeout).until(EC.visibility_of_element_located(locator))
@@ -81,6 +84,34 @@ class BaseComponent(object):
     def has_value(self, elem, value):
         return elem.get_attribute("value") == value
 
+    def has_text(self, elem, value):
+        return elem.text == value
+
+    def get_elem_text(self, locator, timeout=default_timeout):
+        started = time.time()
+        while time.time() - started < timeout:
+            try:
+                elem = self.find(locator, timeout - (time.time() - started))
+                return elem, elem.text
+            except StaleElementReferenceException as Exception:
+                pass
+        raise StaleTimeoutExeption(f"{locator} did not clickable or hav been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
+
+
+    def get_value(self, elem):
+        return elem.get_attribute("value")
+
+    def get_elem_value(self, locator, timeout=default_timeout):
+        started = time.time()
+        while time.time() - started < timeout:
+            try:
+                elem = self.find(locator, timeout - (time.time() - started))
+                return elem, elem.get_attribute("value")
+            except StaleElementReferenceException as Exception:
+                pass
+        raise StaleTimeoutExeption(f"{locator} did not clickable or hav been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
+
+
     def find_all_elems(self, locator, timeout=default_timeout):
         return self.wait(timeout).until(EC.presence_of_all_elements_located(locator))
 
@@ -89,7 +120,7 @@ class BaseComponent(object):
         while time.time() - started < timeout:
             try:
                 elem = self.find(locator, timeout - (time.time() - started))
-                elem.clear()
+                # elem.clear()
                 elem.send_keys(keys)
                 return elem
             except StaleElementReferenceException as Exception:
@@ -108,7 +139,6 @@ class BaseComponent(object):
             except StaleElementReferenceException as Exception:
                 pass
         raise StaleTimeoutExeption(f"{locator} did not clickable or hav been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
-
 
     def click(self, locator, timeout=default_timeout) -> WebElement:
         started = time.time()

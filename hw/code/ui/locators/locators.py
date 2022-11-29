@@ -117,3 +117,8 @@ class SearchPageLocators(BasePageLocators):
     TOO_LONG_UI_NOTIFICATION = (By.XPATH, '//div[@class="notification__message" and text() = "Извините, но название ресторана не может превышать 100 символов."]')
     UI_NOTIFICATION = (By.XPATH, '//div[@class="notification__message"]')
 
+
+class SuggestPageLocators(BasePageLocators):
+    ADDRESS_INPUT = (By.ID, "suggestsSearch")
+    SUGGESTS = (By.CLASS_NAME, "suggest-form__suggest-row")
+    LAST_SUGGEST = (By.XPATH, '//div[@class="suggest-form__suggest-row"][last()]')

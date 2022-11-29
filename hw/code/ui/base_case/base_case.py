@@ -25,6 +25,10 @@ class BaseCase:
         self.driver.refresh()
 
     @pytest.fixture(scope="function")
+    def open(self):
+        self.page.open()
+
+    @pytest.fixture(scope="function")
     def set_address(self):
         self.driver.execute_script("window.localStorage.setItem('address','Москва, 100 Квартал, 1 к.1');")
 
