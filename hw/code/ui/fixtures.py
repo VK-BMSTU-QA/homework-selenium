@@ -5,7 +5,6 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 from ui.components.login_page import LoginPage
-from _pytest.fixtures import FixtureRequest
 import os
 
 from dotenv import load_dotenv
@@ -17,7 +16,9 @@ CODE = os.getenv('CODE')
 
 def get_driver(browser_name):
     if browser_name == "chrome":
-        driver = webdriver.Chrome(service=Service(executable_path=ChromeDriverManager().install()), options=Options())
+        chrome_options = Options()
+        # chrome_options.add_argument("--headless")
+        driver = webdriver.Chrome(service=Service(executable_path=ChromeDriverManager().install()), options=chrome_options)
     elif browser_name == "firefox":
         driver = webdriver.Firefox(service=Service(executable_path=GeckoDriverManager().install()))
     else:

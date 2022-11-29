@@ -1,11 +1,7 @@
 import pytest
 from ui.paths import paths
-from selenium.webdriver.support import expected_conditions as EC
 from ui.components.header import HeaderComponent
-from ui.locators import locators
 from ui.base_case.base_case import BaseCase
-from _pytest.fixtures import FixtureRequest
-import time
 
 
 class TestHeader(BaseCase):
@@ -14,42 +10,40 @@ class TestHeader(BaseCase):
         self.driver = driver
         self.page = HeaderComponent(driver, url_config)
 
-    def test_go_to_mainpage(self):
-        self.page.open_path(paths.TACOLAND_DISHES)
-        self.page.click(self.page.locators.LOGO_BUTTON)
-        assert self.page.is_url(paths.MAIN)
+    # def test_go_to_mainpage(self):
+    #     self.page.open_path(paths.TACOLAND_DISHES)
+    #     self.page.click(self.page.locators.LOGO_BUTTON)
+    #     assert self.page.is_url(paths.MAIN)
+    #     assert self.page.is_visible(self.page.locators.RESTAURANTS_HEADER)
 
     def test_activate_address(self):
-        self.page.click(self.page.locators.ADDRESS_INPUT)
+        address_elem = self.page.open_address()
         assert self.page.is_url(paths.SUGGESTS)
-        address_elem = self.page.find(self.page.locators.ADDRESS_INPUT)
         assert self.page.is_active(address_elem)
         assert self.page.has_value(address_elem, "")
         assert self.page.is_visible(self.page.locators.SUGGESTS)
 
     def test_close_address(self):
-        self.page.click(self.page.locators.ADDRESS_INPUT)
+        address_elem = self.page.open_address()
         assert self.page.is_url(paths.SUGGESTS)
-        assert self.page.is_active(self.page.find(self.page.locators.ADDRESS_INPUT))
+        assert self.page.is_active(address_elem)
 
-        suggests_elems = self.page.find_all_elems(self.page.locators.SUGGESTS)
-        self.page.click_elem_after(suggests_elems[-1],1)
+        self.page.close_address()
 
         assert self.page.is_url(self.page.PATH)
         assert not self.page.is_active(self.page.find(self.page.locators.ADDRESS_INPUT))
         assert self.page.is_invisible(self.page.locators.SUGGESTS)
 
     def test_open_search(self):
-        self.page.click(self.page.locators.SEARCH_BUTTON)
-        search_input_elem = self.page.find(self.page.locators.SEARCH_INPUT)
+        search_input_elem, search_input_value = self.page.activate_search_value()
         assert self.page.is_active(search_input_elem)
-        assert self.page.has_value(search_input_elem, "")
+        assert search_input_value == ""
 
     def test_close_search(self):
-        self.page.click(self.page.locators.SEARCH_BUTTON)
+        self.page.activate_search()
         assert self.page.is_visible(self.page.locators.SEARCH_AREA)
 
-        self.page.click(self.page.locators.SEARCH_CLOSE_BUTTON)
+        self.page.close_search()
         assert self.page.is_invisible(self.page.locators.SEARCH_AREA)
 
     def test_go_to_login(self):
@@ -76,10 +70,6 @@ class TestHeader(BaseCase):
         assert self.page.is_url(self.page.PATH)
         assert self.page.is_invisible(self.page.locators.CART)
 
-    def test_open_cart(self,authorize,fill_cart):
-        self.page.click(self.page.locators.CART_BUTTON)
-        assert self.page.is_url(paths.LOGIN)
-        assert self.page.is_visible(self.page.locators.CART)
 
     def test_close_cart(self,authorize,fill_cart):
         self.page.click(self.page.locators.CART_BUTTON)
@@ -89,3 +79,8 @@ class TestHeader(BaseCase):
         self.page.click(self.page.locators.CART_BUTTON)
         assert self.page.is_url(self.page.PATH)
         assert self.page.is_invisible(self.page.locators.CART)
+
+    def test_open_cart(self,authorize,fill_cart):
+        self.page.click(self.page.locators.CART_BUTTON)
+        assert self.page.is_url(paths.LOGIN)
+        assert self.page.is_visible(self.page.locators.CART)
