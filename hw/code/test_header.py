@@ -1,4 +1,6 @@
 import os
+import time
+
 from pages.auth import AuthPage
 from pages.drafts import DraftPage
 from pages.locators.header import HeaderLocators
@@ -48,6 +50,7 @@ def test_change_color_theme(browser):
     auth_page = AuthPage(browser)
     auth_page.go_to_site()
     auth_page.login(os.getenv('LOGIN'), os.getenv('PASSWORD'))
+    time.sleep(1)
 
     draft_page = DraftPage(browser)
     draft_page.go_to_site()

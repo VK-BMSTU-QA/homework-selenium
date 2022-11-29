@@ -1,8 +1,21 @@
+import time
+
 from .base import BasePage
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
-from .locators.header import HeaderLocators
+from hw.code.pages.locators.header import HeaderLocators
+from hw.code.pages.locators.header import MenuLocators
+from hw.code.pages.locators.draft import DraftLocators
+from hw.code.pages.locators.send import SendLocators
+from selenium.webdriver import ActionChains
+from selenium.webdriver.remote.webelement import WebElement
 
+
+class Draft:
+    def __init__(self, address='', theme='', text=''):
+        self.address = address
+        self.theme = theme
+        self.text = text
 
 class DraftPage(BasePage):
 
@@ -17,40 +30,63 @@ class DraftPage(BasePage):
         logo_button.click()
         assert self.is_redirected('')
 
-    # def login(self, login, password):
-    #     login_input = self.find_element(AuthLocators.LOGIN_INPUT)
-    #     login_input.clear()
-    #     login_input.send_keys(login)
-    #     password_input = self.find_element(AuthLocators.PASSWORD_INPUT)
-    #     password_input.clear()
-    #     password_input.send_keys(password)
-    #     login_button = self.find_element(AuthLocators.LOGIN_BUTTON)
-    #     login_button.click()
-    #
-    # def get_error_messages(self):
-    #     error_messages = self.find_elements(AuthLocators.ANY_ERROR, soft=True)
-    #     return [message.text for message in error_messages]
-    #
-    # def is_login_error(self) -> bool:
-    #     return self.is_elem(AuthLocators.LOGIN_ERROR, soft=True)
-    #
-    # def is_password_error(self) -> bool:
-    #     return self.is_elem(AuthLocators.PASSWORD_ERROR, soft=True)
-    #
-    # def is_redirected(self) -> bool:
-    #     return self.is_url_endswith('income')
-    #
-    # def go_to_register(self):
-    #     from .register import RegisterPage
-    #     register_button = self.find_element(AuthLocators.REGISTER_BUTTON)
-    #     register_button.click()
-    #     register = RegisterPage(self.driver)
-    #     assert register.is_loaded()
-    #     return register
-    #
-    # def is_loaded(self) -> bool:
-    #     try:
-    #         elem = self.find_element(AuthLocators.LOGIN_BUTTON)
-    #         return elem.is_displayed()
-    #     except TimeoutException:
-    #         return False
+    def count(self) -> int:
+        items = self.find_elements(DraftLocators.DRAFTS, soft=True)
+        return len(items)
+
+    def delete_all(self) -> int:
+        items = self.find_elements(DraftLocators.DRAFTS, soft=True)
+        action_chains = ActionChains(self.driver)
+        for item in items:
+            action_chains.context_click(item).perform()
+            delete_button = self.find_element(DraftLocators.DELETE_BUTTON)
+            delete_button.click()
+        assert self.count() == 0
+
+    def create_draft(self, draft, cancel=False):
+        income_button = self.find_element(MenuLocators.INCOME_BUTTON)
+        income_button.click()
+        send_button = self.find_element(MenuLocators.SEND_BUTTON)
+        send_button.click()
+
+        address_input = self.find_element(SendLocators.ADDRESS_INPUT)
+        address_input.clear()
+        address_input.send_keys(draft.address)
+
+        theme_input = self.find_element(SendLocators.THEME_INPUT)
+        theme_input.clear()
+        theme_input.send_keys(draft.theme)
+
+        text_input = self.find_element(SendLocators.TEXT_INPUT)
+        text_input.clear()
+        text_input.send_keys(draft.text)
+
+        menu_draft_button = self.find_element(SendLocators.MENU_INCOME_BUTTON)
+        action_chains = ActionChains(self.driver)
+        menu_draft_button.click()
+
+        if cancel:
+            draft_cancel_button = self.find_element(SendLocators.POPUP_DRAFT_CANCEL_BUTTON)
+            draft_cancel_button.click()
+            return
+
+        draft_save_button = self.find_element(SendLocators.POPUP_DRAFT_SAVE_BUTTON)
+        draft_save_button.click()
+        time.sleep(1)
+        self.go_to_site()
+
+    def list(self) -> list[WebElement]:
+        items = self.find_elements(DraftLocators.DRAFTS, soft=True)
+        return items
+
+    def open_draft(self, index) -> Draft:
+        drafts_list = self.list()
+        assert len(drafts_list) > index
+        item = drafts_list[index]
+        item.click()
+
+        address_input = self.find_element(SendLocators.ADDRESS_INPUT).get_attribute('value')
+        theme_input = self.find_element(SendLocators.THEME_INPUT).get_attribute('value')
+        text_input = self.find_element(SendLocators.TEXT_INPUT).get_attribute('value')
+
+        return Draft(address_input, theme_input, text_input)

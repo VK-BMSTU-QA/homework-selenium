@@ -9,4 +9,7 @@ class SendLocators:
     TEXT_INPUT = (By.ID, "textareaMain")
     SEND_BUTTON = (By.ID, "sendButton")
     MENU_DRAFT_BUTTON = (By.ID, "draft")
+    MENU_INCOME_BUTTON = (By.ID, "income")
+    POPUP_DRAFT_SAVE_BUTTON = (By.ID, 'create')
+    POPUP_DRAFT_CANCEL_BUTTON = (By.ID, 'prev')
 

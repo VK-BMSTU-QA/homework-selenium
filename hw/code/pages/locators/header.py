@@ -15,3 +15,9 @@ class HeaderLocators:
     PROFILE_BUTTON = (By.ID, "profile")
     EXIT_BUTTON = (By.ID, "exit")
 
+class MenuLocators:
+    INCOME_BUTTON = (By.ID, "income")
+    OUTCOME_BUTTON = (By.ID, "outcome")
+    SEND_BUTTON = (By.ID, "send")
+    DRAFT_BUTTON = (By.ID, "draft")
+    SPAM_BUTTON = (By.ID, "spam")
