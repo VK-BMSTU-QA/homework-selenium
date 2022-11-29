@@ -18,7 +18,7 @@ class TestProfile(BaseCase):
         self.page.open_path(paths.PROFILE)
         assert self.page.is_url(paths.PROFILE)
 
-        self.page.send_keys(self.page.locators.NAME_INPUT, ' ')
+        self.page.send_keys_enter(self.page.locators.NAME_INPUT, ' ')
         self.page.click(self.page.locators.SAVE_BUTTON)
 
         assert self.page.is_visible(self.page.locators.EMPTY_NAME_ERROR)
@@ -27,7 +27,7 @@ class TestProfile(BaseCase):
         self.page.open_path(paths.PROFILE)
         assert self.page.is_url(paths.PROFILE)
 
-        self.page.send_keys(self.page.locators.EMAIL_INPUT, ' ')
+        self.page.send_keys_enter(self.page.locators.EMAIL_INPUT, ' ')
         self.page.click(self.page.locators.SAVE_BUTTON)
 
         assert self.page.is_visible(self.page.locators.EMPTY_EMAIL_ERROR)
@@ -50,7 +50,7 @@ class TestProfile(BaseCase):
 
         assert self.page.is_visible(self.page.locators.SAVE_SUCCESS)
 
-    def test_input_valid_avatar(self, authorize):
+    def test_upload_valid_avatar(self, authorize):
         self.page.open_path(paths.PROFILE)
         assert self.page.is_url(paths.PROFILE)
 

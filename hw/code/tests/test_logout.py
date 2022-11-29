@@ -31,13 +31,7 @@ class TestLogout(BaseCase):
         self.page.click(self.page.locators.LOGOUT_BUTTON)
         assert self.page.is_url(paths.GUAVA_DISHES)
 
-    def test_logout_from_order_history(self, authorize, set_address, fill_cart):
-        self.page.open_path(paths.ORDERING)
-        assert self.page.is_url(paths.ORDERING)
-
-        self.page.click(self.page.locators.PAY_BUTTON)
-        assert self.page.is_url(paths.ORDER_HISTORY)
-
+    def test_logout_from_order_history(self, authorize, order):
         self.page.click(self.page.locators.PROFILE_BUTTON)
         assert self.page.is_url(paths.PROFILE_MENU)
 

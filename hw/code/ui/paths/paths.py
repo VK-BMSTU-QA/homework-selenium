@@ -12,5 +12,4 @@ ORDERING = '/ordering'
 CART = "/shoppingCart"
 SUSHI_CATEGORY = "/main/Суши"
 PIZZA_CATEGORY = "/main/Пицца"
-ORDER_HISTORY = "/orderHistory"
 SEARCH = "/main"
