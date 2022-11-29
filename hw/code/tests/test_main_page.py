@@ -19,12 +19,6 @@ class TestMainPage(BaseCase):
         assert self.page.is_url(paths.GUAVA_DISHES)
         assert self.page.is_visible(self.page.locators.MENU_HEADER)
 
-    def test_apply_promocode(self, authorize,set_address):
-        self.page.click(self.page.locators.PROMOCODE_IMG)
-        assert self.page.is_url(paths.CART)
-        assert self.page.is_visible(self.page.locators.PROMOCODE_UI_NOTIFICATION)
-        assert self.page.is_visible(self.page.locators.MENU_HEADER)
-
     def test_go_to_category(self):
         self.page.click(self.page.locators.SUSHI_CATEGORY_BUTTON)
         assert self.page.is_url(paths.SUSHI_CATEGORY)
@@ -47,3 +41,9 @@ class TestMainPage(BaseCase):
         self.page.click(self.page.locators.PIZZA_CATEGORY_BUTTON)
         assert self.page.is_url(paths.PIZZA_CATEGORY)
         assert self.page.is_invisible(self.page.locators.PIZZA_CATEGORY_SELECTED_BUTTON)
+
+    def test_apply_promocode(self, authorize, set_address):
+        self.page.click(self.page.locators.PROMOCODE_IMG)
+        assert self.page.is_url(paths.CART)
+        assert self.page.is_visible(self.page.locators.PROMOCODE_UI_NOTIFICATION)
+        assert self.page.is_visible(self.page.locators.MENU_HEADER)
