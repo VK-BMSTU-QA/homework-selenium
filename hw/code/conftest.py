@@ -4,13 +4,15 @@ from ui.fixtures import *
 
 
 def pytest_addoption(parser):
-    parser.addoption('--browser', default='chrome')
-    parser.addoption('--url', default='http://qa.alersh.ru/')
+    parser.addoption("--browser", default="chrome")
+    parser.addoption("--url", default="http://qa.alersh.ru/")
 
-@pytest.fixture(scope='session')
+
+@pytest.fixture(scope="session")
 def url_config(request):
-    return request.config.getoption('--url')
+    return request.config.getoption("--url")
 
-@pytest.fixture(scope='session')
+
+@pytest.fixture(scope="session")
 def browser_config(request):
-    return request.config.getoption('--browser')
+    return request.config.getoption("--browser")

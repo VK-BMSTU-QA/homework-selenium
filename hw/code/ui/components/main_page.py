@@ -15,7 +15,6 @@ class MainPage(BaseComponent):
         self.click(self.locators.SUSHI_CATEGORY_BUTTON)
         self.wait_invisability_of_elem(self.locators.SUSHI_CATEGORY_SELECTED_BUTTON)
 
-
     def choose_pizza_category(self):
         self.click(self.locators.PIZZA_CATEGORY_BUTTON)
         self.wait_visability_of_elem(self.locators.PIZZA_CATEGORY_SELECTED_BUTTON)

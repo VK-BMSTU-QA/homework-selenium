@@ -8,7 +8,7 @@ class CartPage(BaseComponent):
     PATH = paths.GUAVA_DISHES
 
     def add_to_cart(self, number=1):
-        self.click_number(self.locators.ADD_TO_CART_BUTTON,number)
+        self.click_number(self.locators.ADD_TO_CART_BUTTON, number)
 
-    def is_count_of_dish(self, count,number=1):
-        return self.find_all_elems(self.locators.COUNT_OF_DISHES)[number-1].text == count
+    def is_count_of_dish(self, count, number=1):
+        return self.find_all_elems(self.locators.COUNT_OF_DISHES)[number - 1].text == count

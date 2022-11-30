@@ -13,8 +13,8 @@ class ReviewsElement(BaseComponent):
         self.wait_visability_of_elem(self.locators.REVIEWS_HEADER)
 
     def input_review(self, text, stars):
-        self.send_keys(self.locators.REVIEW_TEXTAREA,text)
-        self.click(self.locators.REVIEW_STARS_BUTTONS[stars-1])
+        self.send_keys(self.locators.REVIEW_TEXTAREA, text)
+        self.click(self.locators.REVIEW_STARS_BUTTONS[stars - 1])
 
     def send_review(self):
         self.click(self.locators.SEND_REVIEW_CONTENT_BUTTON)

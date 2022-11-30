@@ -59,10 +59,11 @@ class LoginLocators(BasePageLocators):
     CONFIRM_CODE_BUTTON = (By.ID, "confirmCodeButton")
     CONFIRM_CODE_HEADER = (By.XPATH, '//h2[@class="preview__title" and text()="Подтвердите телефон"]')
     CLOSE_BUTTON = (By.ID, "closeImg")
-    RETRY_BUTTON = (By.ID, 'sendCodeButton')
+    RETRY_BUTTON = (By.ID, "sendCodeButton")
     RETRY_SUCCESS = (By.XPATH, '//div[@class="notification__message" and text() = "Ожидайте звонок"]')
     INVALID_CODE_ERROR = (By.XPATH, '//div[@id="confirm-code-form"]//div[@class="input-block__input-underline error" and text() = "Неверный код подтверждения"]')
-    CLOSE_BUTTON = (By.ID, 'closeImg')
+    CLOSE_BUTTON = (By.ID, "closeImg")
+
 
 class RestaurantMenuLocators(BasePageLocators):
     ADD_TO_CART_BUTTON = (By.CLASS_NAME, "dish-icon__button-add-to-order")
@@ -110,6 +111,7 @@ class ReviewsLocators(BasePageLocators):
     SEND_REVIEW_CONTENT_BUTTON = (By.ID, "createComment")
     REVIEW_TEXT = (By.CLASS_NAME, "comment__text")
     REVIEW_STARS = (By.CLASS_NAME, "comment__stars")
+
 
 class RegisterLocators(BasePageLocators):
     PHONE_INPUT = (By.XPATH, '//div[@id="register-form"]//div[@id="registerPhone"]//input[@class="input-block__input"]')

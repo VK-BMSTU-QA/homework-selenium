@@ -22,8 +22,8 @@ class BaseCase:
     def authorize(self, request: FixtureRequest):
         cookies = request.getfixturevalue("cookies")
         for cookie in cookies:
-            if (cookie['domain']=='localhost'):
-                cookie['domain'] = ''
+            if cookie["domain"] == "localhost":
+                cookie["domain"] = ""
             self.driver.add_cookie(cookie)
 
         self.driver.refresh()
