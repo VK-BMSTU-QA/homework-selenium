@@ -1,6 +1,7 @@
 from ui.locators import locators
 from ui.components.base_component import BaseComponent
 from ui.paths import paths
+import time
 
 
 class SuggestPage(BaseComponent):
@@ -40,7 +41,7 @@ class SuggestPage(BaseComponent):
 
     def get_suggests_full_address(self, address):
         self.get_suggests(address[:-1])
-        self.wait(2)
+        time.sleep(2)
         self.get_suggests(address[-1])
 
     def get_elem_text_first_suggest(self):

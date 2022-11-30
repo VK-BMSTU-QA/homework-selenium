@@ -5,7 +5,7 @@ from ui.fixtures import *
 
 def pytest_addoption(parser):
     parser.addoption('--browser', default='chrome')
-    parser.addoption('--url', default='http://95.163.180.8/')
+    parser.addoption('--url', default='http://qa.alersh.ru/')
 
 @pytest.fixture(scope='session')
 def url_config(request):
