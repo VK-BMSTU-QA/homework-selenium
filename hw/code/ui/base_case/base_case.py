@@ -22,8 +22,8 @@ class BaseCase:
     def authorize(self, request: FixtureRequest):
         cookies = request.getfixturevalue("cookies")
         for cookie in cookies:
-            # cookie['domain'] = ''
-            # print(cookie)
+            if (cookie['domain']=='localhost'):
+                cookie['domain'] = ''
             self.driver.add_cookie(cookie)
 
         self.driver.refresh()
@@ -61,6 +61,5 @@ class BaseCase:
 
         self.page.click(self.page.locators.DETAILS_BUTTON)
 
-        # time.sleep(10) # чтобы тест оставления отзыва прошел, нужно руками нажать на кнопку "оставить отзыв" в течении этих 10 секунд. Кнопка будет видна на экране
         self.page.click(self.page.locators.SEND_REVIEW_BUTTON)
         self.page.wait_visability_of_elem(self.page.locators.SEND_REVIEWS_HEADER)
