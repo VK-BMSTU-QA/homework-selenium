@@ -18,6 +18,12 @@ def get_driver(browser_name):
     if browser_name == "chrome":
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
+        chrome_options.add_argument('--no-proxy-server')
+        chrome_options.add_argument("--disable-extensions")
+        chrome_options.add_argument('--disable-gpu')
+        chrome_options.set_capability(
+                        "goog:loggingPrefs", {"performance": "ALL", "browser": "ALL"}
+                    )
         driver = webdriver.Chrome(service=Service(executable_path=ChromeDriverManager().install()), options=chrome_options)
     elif browser_name == "firefox":
         driver = webdriver.Firefox(service=Service(executable_path=GeckoDriverManager().install()))

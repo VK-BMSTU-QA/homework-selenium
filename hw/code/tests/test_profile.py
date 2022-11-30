@@ -14,46 +14,28 @@ class TestProfile(BaseCase):
         self.driver = driver
         self.page = ProfilePage(driver, url_config)
 
-    def test_input_empty_name(self, authorize):
-        self.page.open_path(paths.PROFILE)
-        assert self.page.is_url(paths.PROFILE)
+    @pytest.fixture(scope="function", autouse=True)
+    def setup(self, set_page):
+        self.page.open_path(paths.MAIN)
 
-        self.page.send_keys_enter(self.page.locators.NAME_INPUT, ' ')
-        self.page.click(self.page.locators.SAVE_BUTTON)
-
+    def test_input_empty_name(self, authorize,open):
+        self.page.send_new_name(' ')
         assert self.page.is_visible(self.page.locators.EMPTY_NAME_ERROR)
 
-    def test_input_empty_email(self, authorize):
-        self.page.open_path(paths.PROFILE)
-        assert self.page.is_url(paths.PROFILE)
-
-        self.page.send_keys_enter(self.page.locators.EMAIL_INPUT, ' ')
-        self.page.click(self.page.locators.SAVE_BUTTON)
+    def test_input_empty_email(self, authorize,open):
+        self.page.send_new_email(' ')
 
         assert self.page.is_visible(self.page.locators.EMPTY_EMAIL_ERROR)
 
-    def test_input_valid_name(self, authorize):
-        self.page.open_path(paths.PROFILE)
-        assert self.page.is_url(paths.PROFILE)
-
-        self.page.send_keys(self.page.locators.NAME_INPUT, 'New name')
-        self.page.click(self.page.locators.SAVE_BUTTON)
-
+    def test_input_valid_name(self, authorize,open):
+        self.page.send_new_name('New name')
         assert self.page.is_visible(self.page.locators.SAVE_SUCCESS)
 
-    def test_input_valid_email(self, authorize):
-        self.page.open_path(paths.PROFILE)
-        assert self.page.is_url(paths.PROFILE)
-
-        self.page.send_keys(self.page.locators.NAME_INPUT, 'new@yandex.ru')
-        self.page.click(self.page.locators.SAVE_BUTTON)
-
+    def test_input_valid_email(self, authorize,open):
+        self.page.send_new_email('new@yandex.ru')
         assert self.page.is_visible(self.page.locators.SAVE_SUCCESS)
 
-    def test_upload_valid_avatar(self, authorize):
-        self.page.open_path(paths.PROFILE)
-        assert self.page.is_url(paths.PROFILE)
-
+    def test_upload_valid_avatar(self, authorize,open):
         print(os.getcwd() + '/images/avatar.jpeg')
 
         self.page.click(self.page.locators.AVATAR_BUTTON)
@@ -64,16 +46,10 @@ class TestProfile(BaseCase):
 
         assert self.page.is_visible(self.page.locators.SAVE_SUCCESS)
 
-    def test_order_history_button_click(self, authorize):
-        self.page.open_path(paths.PROFILE)
-        assert self.page.is_url(paths.PROFILE)
-
+    def test_order_history_button_click(self, authorize,open):
         self.page.click(self.page.locators.ORDER_HISTORY_BUTTON)
         assert self.page.is_url(paths.ORDER_HISTORY)
 
-    def test_back_button_click(self, authorize):
-        self.page.open_path(paths.PROFILE)
-        assert self.page.is_url(paths.PROFILE)
-
+    def test_back_button_click(self, authorize,open):
         self.page.click(self.page.locators.BACK_BUTTON)
         assert self.page.is_url(paths.MAIN)

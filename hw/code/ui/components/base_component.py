@@ -9,7 +9,7 @@ from selenium.common.exceptions import StaleElementReferenceException
 from contextlib import contextmanager
 import urllib.parse as urlparse
 from ui.locators import locators
-
+import json
 
 class PageNotOpenedExeption(Exception):
     pass
@@ -30,6 +30,7 @@ class BaseComponent(object):
         while time.time() - started < timeout:
             if self.driver.current_url == url:
                 return True
+
         raise PageNotOpenedExeption(f"{url} did not open in {timeout} sec, current url {self.driver.current_url}")
 
     def __init__(self, driver, url):
@@ -61,6 +62,9 @@ class BaseComponent(object):
     def wait_invisability_of_elem(self, locator, timeout=default_timeout):
         return self.wait(timeout).until(EC.invisibility_of_element_located(locator))
 
+    def wait_to_be_clickable(self, locator, timeout=default_timeout):
+        return self.wait(timeout).until(EC.element_to_be_clickable(locator))
+
     def is_visible(self, locator, timeout=mini_timeout):
         try:
             self.wait(timeout).until(EC.visibility_of_element_located(locator))
@@ -80,6 +84,9 @@ class BaseComponent(object):
 
     def is_active(self, elem):
         return self.driver.switch_to.active_element == elem
+
+    def is_not_active(self, elem):
+        return self.driver.switch_to.active_element != elem
 
     def has_value(self, elem, value):
         return elem.get_attribute("value") == value
@@ -116,23 +123,35 @@ class BaseComponent(object):
     def find_all_elems(self, locator, timeout=default_timeout):
         return self.wait(timeout).until(EC.presence_of_all_elements_located(locator))
 
-    def send_keys(self, locator, keys, timeout=default_timeout) -> WebElement:
+    def send_keys_no_clear(self, locator, keys, timeout=default_timeout) -> WebElement:
         started = time.time()
         while time.time() - started < timeout:
             try:
-                elem = self.find(locator, timeout - (time.time() - started))
-                # elem.clear()
+                elem = self.wait_to_be_clickable(locator, timeout - (time.time() - started))
                 elem.send_keys(keys)
                 return elem
             except StaleElementReferenceException as Exception:
                 pass
         raise StaleTimeoutExeption(f"{locator} did not clickable or hav been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
 
+    def send_keys(self, locator, keys, timeout=default_timeout) -> WebElement:
+        started = time.time()
+        while time.time() - started < timeout:
+            try:
+                elem = self.wait_to_be_clickable(locator, timeout - (time.time() - started))
+                elem.clear()
+                elem.send_keys(keys)
+                return elem
+            except StaleElementReferenceException as Exception:
+                pass
+        raise StaleTimeoutExeption(f"{locator} did not clickable or hav been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
+
+
     def send_keys_enter(self, locator, keys, timeout=default_timeout) -> WebElement:
         started = time.time()
         while time.time() - started < timeout:
             try:
-                elem = self.find(locator, timeout - (time.time() - started))
+                elem = self.wait_to_be_clickable(locator, timeout - (time.time() - started))
                 elem.clear()
                 elem.send_keys(keys)
                 elem.send_keys(Keys.RETURN)
@@ -145,12 +164,25 @@ class BaseComponent(object):
         started = time.time()
         while time.time() - started < timeout:
             try:
-                elem = self.wait(timeout - (time.time() - started)).until(EC.element_to_be_clickable(locator))
+                elem = self.wait_to_be_clickable(locator, timeout - (time.time() - started))
                 elem.click()
                 return elem
             except StaleElementReferenceException as Exception:
                 pass
         raise StaleTimeoutExeption(f"{locator} did not clickable or hav been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
+
+    def click_number(self, locator, number, timeout=default_timeout) -> WebElement:
+        started = time.time()
+        while time.time() - started < timeout:
+            try:
+                elem = self.find_all_elems(locator)[number-1]
+                elem = self.wait_to_be_clickable(elem, timeout - (time.time() - started))
+                elem.click()
+                return elem
+            except StaleElementReferenceException as Exception:
+                pass
+        raise StaleTimeoutExeption(f"{locator} did not clickable or hav been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
+
 
     @contextmanager
     def wait_for_reload_elem(self, locator, timeout=default_timeout):
@@ -162,7 +194,7 @@ class BaseComponent(object):
         started = time.time()
         while time.time() - started < timeout:
             try:
-                elem = self.wait(timeout - (time.time() - started)).until(EC.element_to_be_clickable(locator))
+                elem = self.wait_to_be_clickable(locator, timeout - (time.time() - started))
                 elem.click()
                 self.action.move_to_element_with_offset(elem, 0, elem.size["height"] + dy).click().perform()
                 return elem

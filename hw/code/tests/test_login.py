@@ -13,32 +13,26 @@ class TestLogin(BaseCase):
 
     def test_input_empty_phone(self):
         self.page.click(self.page.locators.LOGIN_BUTTON)
-
         assert self.page.is_visible(self.page.locators.EMPTY_PHONE_ERROR)
 
     def test_input_phone_with_small_length(self):
-        self.page.send_keys(self.page.locators.PHONE_INPUT, '+7(495')
-
+        self.page.input_phone("+7(495")
         assert self.page.is_visible(self.page.locators.PHONE_LENGTH_ERROR)
 
     def test_input_not_registered_phone(self):
-        self.page.send_keys(self.page.locators.PHONE_INPUT, '+7(495)000-11-22')
-        self.page.click(self.page.locators.LOGIN_BUTTON)
-
+        self.page.send_phone("+7(495)000-11-22")
         assert self.page.is_visible(self.page.locators.NOT_REGISTERED_PHONE_ERROR)
 
     def test_input_registered_phone(self):
-        self.page.send_keys(self.page.locators.PHONE_INPUT, '+7(901)502-04-56')
-        self.page.click(self.page.locators.LOGIN_BUTTON)
-
+        self.page.send_phone("+7(901)502-04-56")
+        assert self.page.is_visible(self.page.locators.CONFIRM_CODE_HEADER)
         assert self.page.is_url(paths.CONFIRM_CODE)
 
     def test_register_button_click(self):
         self.page.click(self.page.locators.REGISTER_BUTTON)
-
         assert self.page.is_url(paths.REGISTER)
 
     def test_close_modal_window(self):
         self.page.click(self.page.locators.CLOSE_BUTTON)
-
+        assert self.page.is_invisible(self.page.locators.LOGIN_MODAL)
         assert self.page.is_url(paths.MAIN)

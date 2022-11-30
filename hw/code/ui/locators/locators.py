@@ -2,7 +2,6 @@ from selenium.webdriver.common.by import By
 
 
 class BasePageLocators:
-    HTML = (By.TAG_NAME, "html")
     CART_BUTTON = (By.ID, "shoppingCartButton")
     CART = (By.CLASS_NAME, "shopping-cart")
     GUAVA_RESTAURANT_IMG = (By.XPATH, '//img[@class="rest-icon__rest_img" and @alt="Guava"]')
@@ -11,6 +10,11 @@ class BasePageLocators:
     PAY_BUTTON = (By.ID, "buttonPay")
     LOGO_BUTTON = (By.XPATH, '//a[@class="main-button__controller" and text() = "obringTo"]')
     ORDER_HISTORY_HEADER = (By.XPATH, '//h1[@class="form-title__title-name" and text() = "Мои заказы"]')
+    PROMOCODE_IMG = (By.CLASS_NAME, "promo-code-block__promo-code-icon")
+    DETAILS_BUTTON = (By.CLASS_NAME, "buttonOpenClose")
+    ORDER_DETAILS = (By.CLASS_NAME, "order__main-content")
+    SEND_REVIEW_BUTTON = (By.XPATH, '//*[@id="commentButton"]/button')
+    SEND_REVIEWS_HEADER = (By.XPATH, '//h1[@class="simple-title" and contains(text(),"Оставить отзыв о")]')
 
 
 class HeaderLocators(BasePageLocators):
@@ -35,15 +39,11 @@ class HeaderLocators(BasePageLocators):
 class MainPageLocators(BasePageLocators):
     MENU_HEADER = (By.XPATH, '//h1[@class="simple-title"]')
     PROMOCODE_IMG = (By.CLASS_NAME, "promo-code-block__promo-code-icon")
-    PROMOCODE_UI_NOTIFICATION = (
-        By.XPATH, '//div[@class="notification__message" and text() = "Промокод успешно применен"]')
+    PROMOCODE_UI_NOTIFICATION = (By.XPATH, '//div[@class="notification__message" and text() = "Промокод успешно применен"]')
     SUSHI_CATEGORY_BUTTON = (By.XPATH, '//div[contains(@class, "category ") and @data-title = "Суши"]')
-    SUSHI_CATEGORY_SELECTED_BUTTON = (
-        By.XPATH,
-        '//div[contains(@class, "category ") and contains(@class, "category_selected") and @data-title = "Суши"]')
+    SUSHI_CATEGORY_SELECTED_BUTTON = (By.XPATH, '//div[contains(@class, "category ") and contains(@class, "category_selected") and @data-title = "Суши"]')
     PIZZA_CATEGORY_BUTTON = (By.XPATH, '//div[contains(@class, "category ") and @data-title = "Пицца"]')
-    PIZZA_CATEGORY_SELECTED_BUTTON = (By.XPATH,
-                                      '//div[contains(@class, "category ") and contains(@class, "category_selected") and @data-title = "Пицца"]')
+    PIZZA_CATEGORY_SELECTED_BUTTON = (By.XPATH, '//div[contains(@class, "category ") and contains(@class, "category_selected") and @data-title = "Пицца"]')
 
 
 class LoginLocators(BasePageLocators):
@@ -53,55 +53,65 @@ class LoginLocators(BasePageLocators):
     EMPTY_PHONE_ERROR = (By.XPATH, '//div[@id="loginPhone"]//div[@class="input-block__input-underline error" and text() = "Заполните это поле"]')
     PHONE_LENGTH_ERROR = (By.XPATH, '//div[@id="loginPhone"]//div[@class="input-block__input-underline error" and text() = "Формат телефона: +7(988)888-88-88"]')
     NOT_REGISTERED_PHONE_ERROR = (By.XPATH, '//div[@id="loginPhone"]//div[@class="input-block__input-underline error" and text() = "Номер не зарегистрирован"]')
-    LOGIN_BUTTON = (By.ID, 'loginButton')
-    REGISTER_BUTTON = (By.ID, 'registerButton')
+    LOGIN_BUTTON = (By.ID, "loginButton")
+    REGISTER_BUTTON = (By.ID, "registerButton")
     CODE_INPUT = (By.XPATH, '//div[@id="confirmCode"]//input[@class="input-block__input"]')
     CONFIRM_CODE_BUTTON = (By.ID, "confirmCodeButton")
-
-
-class RestaurantMenuLocators(BasePageLocators):
-    ADD_TO_CART_BUTTON = (By.CLASS_NAME, "dish-icon__button-add-to-order")
-    CART = (By.CLASS_NAME, "shopping-cart")
-    FOBRINGTO_BUTTON = (By.CLASS_NAME, "page-header__button")
-    RESTAURANTS_LIST = (By.CLASS_NAME, "restaurants-form")
-
-
-class CardLocators(BasePageLocators):
-    ADD_TO_CART_BUTTON = (By.CLASS_NAME, 'dish-icon__button-add-to-order')
-    CART = (By.CLASS_NAME, "shopping-cart")
-    DECREMENT_DISH_COUNT = (By.CLASS_NAME, "decrementDishCount")
-    INCREMENT_DISH_COUNT = (By.CLASS_NAME, 'incrementDishCount')
-    COUNT_OF_DISHES = (By.CLASS_NAME, "point-info__count-current-point")
-    PRICE = (By.CLASS_NAME, "button__controller_with-price")
-    ADD_SECOND_DISH = (By.XPATH, '//*[@id="root"]/main/div[3]/section[2]/div[2]/div[4]/button')
-    SECOND_DISH_IN_CARD = (By.XPATH, '//*[@id="modal"]/div/div[2]/section[2]/div[2]/div[1]/div[1]')
-    COUNT_SECOND_DISHES = (By.XPATH, '//*[@id="modal"]/div/div[2]/section[2]/div[2]/div[3]/div[2]')
-    ORDER_BUTTON = (By.ID, "orderButton")
-
-
-class RecommendationsLocators(BasePageLocators):
-    ADD_TO_CART_BUTTON = (By.CLASS_NAME, 'dish-icon__button-add-to-order')
-    RECOMMENDATIONS = (By.CLASS_NAME, 'shopping-cart__recommendations')
-    ADD_RECOMMENDATIONS = (By.CLASS_NAME, 'recommendation__button-add-to-order')
-    RECOMMENDATION_DISH_IN_CARD = (By.XPATH, '//*[@id="modal"]/div/div[2]/section[2]')
-
-
-class PromoCodesLocators(BasePageLocators):
-    PROMO_CODE = (By.CLASS_NAME, 'promo-code-block__promo-code-icon')
-    PROMO_CODE_RESET = (By.CLASS_NAME, 'shopping-cart__preview-rest')
-
-
-class CommentsLocators(BasePageLocators):
-    RESTAURANTS = (By.CLASS_NAME, 'rest-icon__rest_img')
-    COMMENTS_BLOCK = (By.CLASS_NAME, 'comments-block__value')
-    BUTTON_OPEN_CLOSE = (By.CLASS_NAME, 'order-info__move-controller')
-    SEND_COMMENT_BUTTON = (By.CLASS_NAME, 'comment-button')
-    CONFIRM_CODE_BUTTON = (By.ID, 'confirmCodeButton')
+    CONFIRM_CODE_HEADER = (By.XPATH, '//h2[@class="preview__title" and text()="Подтвердите телефон"]')
+    CLOSE_BUTTON = (By.ID, "closeImg")
     RETRY_BUTTON = (By.ID, 'sendCodeButton')
     RETRY_SUCCESS = (By.XPATH, '//div[@class="notification__message" and text() = "Ожидайте звонок"]')
     INVALID_CODE_ERROR = (By.XPATH, '//div[@id="confirm-code-form"]//div[@class="input-block__input-underline error" and text() = "Неверный код подтверждения"]')
     CLOSE_BUTTON = (By.ID, 'closeImg')
 
+class RestaurantMenuLocators(BasePageLocators):
+    ADD_TO_CART_BUTTON = (By.CLASS_NAME, "dish-icon__button-add-to-order")
+    CART = (By.CLASS_NAME, "shopping-cart")
+    ALL_RESTAURANTS_BUTTON = (By.CLASS_NAME, "back-button")
+    RESTAURANTS_LIST = (By.CLASS_NAME, "restaurants-form")
+
+
+class CartLocators(BasePageLocators):
+    ADD_TO_CART_BUTTON = (By.CLASS_NAME, "dish-icon__button-add-to-order")
+    CART = (By.CLASS_NAME, "shopping-cart")
+    DECREMENT_DISH_COUNT = (By.CLASS_NAME, "decrementDishCount")
+    INCREMENT_DISH_COUNT = (By.CLASS_NAME, "incrementDishCount")
+    COUNT_OF_DISHES = (By.CLASS_NAME, "point-info__count-current-point")
+    PRICE = (By.CLASS_NAME, "button__controller_with-price")
+    # ADD_SECOND_DISH = (By.XPATH, '//*[@id="root"]/main/div[3]/section[2]/div[2]/div[4]/button')
+    SECOND_DISH_IN_CART = (By.XPATH, '//section[@class="shopping-cart__order-point"][2]')
+    # COUNT_SECOND_DISHES = (By.XPATH, '//*[@id="modal"]/div/div[2]/section[2]/div[2]/div[3]/div[2]')
+    ORDER_BUTTON = (By.ID, "orderButton")
+
+
+class RecommendationsLocators(BasePageLocators):
+    ADD_TO_CART_BUTTON = (By.CLASS_NAME, "dish-icon__button-add-to-order")
+    RECOMMENDATIONS = (By.CLASS_NAME, "shopping-cart__recommendations")
+    ADD_RECOMMENDATIONS = (By.CLASS_NAME, "recommendation__button-add-to-order")
+    RECOMMENDATION_DISH_IN_CART = (By.XPATH, '//*[@id="modal"]/div/div[2]/section[2]')
+
+
+class PromoCodesLocators(BasePageLocators):
+    PROMO_CODE = (By.CLASS_NAME, "promo-code-block__promo-code-icon")
+    PROMO_CODE_RESET = (By.CLASS_NAME, "shopping-cart__preview-rest")
+
+
+class ReviewsLocators(BasePageLocators):
+    REVIEW_INFO_BLOCK = (By.CLASS_NAME, "comments-block__value")
+    SEND_REVIEW_BUTTON = (By.CLASS_NAME, "review-button")
+    REVIEWS_HEADER = (By.XPATH, '//h1[@class="simple-title" and contains(text(),"Отзывы о")]')
+    REVIEWS = (By.CLASS_NAME, "comment")
+    REVIEW_TEXTAREA = (By.ID, "comment")
+    REVIEW_STARS_BUTTONS = [
+        (By.XPATH, '//img[contains(@class,"star") and @data-count="1"]'),
+        (By.XPATH, '//img[contains(@class,"star") and @data-count="2"]'),
+        (By.XPATH, '//img[contains(@class,"star") and @data-count="3"]'),
+        (By.XPATH, '//img[contains(@class,"star") and @data-count="4"]'),
+        (By.XPATH, '//img[contains(@class,"star") and @data-count="5"]'),
+    ]
+    SEND_REVIEW_CONTENT_BUTTON = (By.ID, "createComment")
+    REVIEW_TEXT = (By.CLASS_NAME, "comment__text")
+    REVIEW_STARS = (By.CLASS_NAME, "comment__stars")
 
 class RegisterLocators(BasePageLocators):
     PHONE_INPUT = (By.XPATH, '//div[@id="register-form"]//div[@id="registerPhone"]//input[@class="input-block__input"]')
@@ -113,17 +123,18 @@ class RegisterLocators(BasePageLocators):
     PHONE_LENGTH_ERROR = (By.XPATH, '//div[@id="register-form"]//div[@id="registerPhone"]//div[@class="input-block__input-underline error" and text() = "Формат телефона: +7(988)888-88-88"]')
     INVALID_EMAIL_ERROR = (By.XPATH, '//div[@id="register-form"]//div[@id="registerEmail"]//div[@class="input-block__input-underline error" and text() = "Формат email: fobrinto@gmail.com"]')
     REGISTERED_PHONE_ERROR = (By.XPATH, '//div[@class="notification__message" and text() = "Пользователь с таким номером уже зарегистрирован"]')
-    REGISTER_BUTTON = (By.ID, 'register-button')
+    REGISTER_BUTTON = (By.ID, "register-button")
     LOGIN_BUTTON = (By.XPATH, '//div[@id="register-form"]//button[@class="simple-button" and @data-section="login"]')
-    CLOSE_BUTTON = (By.ID, 'closeImg')
+    CLOSE_BUTTON = (By.ID, "closeImg")
+    CONFIRM_CODE_HEADER = (By.XPATH, '//h2[@class="preview__title" and text()="Подтвердите телефон"]')
 
 
 class ProfileLocators(BasePageLocators):
-    AVATAR_INPUT = (By.ID, 'avatarUpload')
-    AVATAR_BUTTON = (By.ID, 'changeAvatarButton')
+    AVATAR_INPUT = (By.ID, "avatarUpload")
+    AVATAR_BUTTON = (By.ID, "changeAvatarButton")
     NAME_INPUT = (By.XPATH, '//form[@id="person-info-form"]//div[@id="profileName"]//input[@class="input-block__input"]')
     EMAIL_INPUT = (By.XPATH, '//form[@id="person-info-form"]//div[@id="profileEmail"]//input[@class="input-block__input"]')
-    SAVE_BUTTON = (By.ID, 'personInfoSaveButton')
+    SAVE_BUTTON = (By.ID, "personInfoSaveButton")
     EMPTY_NAME_ERROR = (By.XPATH, '//form[@id="person-info-form"]//div[@id="profileName"]//div[@class="input-block__input-underline error" and text() = "Заполните это поле"]')
     EMPTY_EMAIL_ERROR = (By.XPATH, '//form[@id="person-info-form"]//div[@id="profileEmail"]//div[@class="input-block__input-underline error" and text() = "Заполните это поле"]')
     SAVE_SUCCESS = (By.XPATH, '//div[@class="notification__message" and text() = "Изменения успешно сохранены"]')
@@ -132,13 +143,13 @@ class ProfileLocators(BasePageLocators):
 
 
 class LogoutLocators(BasePageLocators):
-    PROFILE_BUTTON = (By.ID, 'profilePreviewButton')
+    PROFILE_BUTTON = (By.ID, "profilePreviewButton")
     LOGOUT_BUTTON = (By.XPATH, '//section[@id="modal"]//div[@class="profile-menu__point logoutButton"]')
 
 
 class OrderingLocators(BasePageLocators):
-    BACK_BUTTON_BUTTON = (By.XPATH, '//header[@id="header"]//a/img')
-    PAY_BUTTON = (By.ID, 'buttonPay')
+    BACK_BUTTON = (By.XPATH, '//header[@id="header"]//a/img')
+    PAY_BUTTON = (By.ID, "buttonPay")
     SAVE_SUCCESS = (By.XPATH, '//div[@class="notification__message" and text() = "Заказ успешно создан"]')
 
 

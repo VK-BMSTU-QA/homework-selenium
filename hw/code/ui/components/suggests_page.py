@@ -29,7 +29,7 @@ class SuggestPage(BaseComponent):
 
     def get_suggests(self, query):
         with self.wait_for_reload_elem(self.locators.SUGGESTS):
-            self.send_keys(self.locators.ADDRESS_INPUT, query)
+            self.send_keys_no_clear(self.locators.ADDRESS_INPUT, query)
 
     def is_first_suggest(self, value):
         return self.has_text(self.find(self.locators.SUGGESTS),value)
@@ -40,7 +40,7 @@ class SuggestPage(BaseComponent):
 
     def get_suggests_full_address(self, address):
         self.get_suggests(address[:-1])
-        self.wait(1)
+        self.wait(2)
         self.get_suggests(address[-1])
 
     def get_elem_text_first_suggest(self):
