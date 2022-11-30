@@ -10,4 +10,4 @@ class SeriesPage(BasePage):
     def open(self):
         self.click(basic_locators.BasePageLocators.BUTTON_SERIES, 10)
         self.is_opened(self.url, 10)
-        time.sleep(1)
+        time.sleep(2)

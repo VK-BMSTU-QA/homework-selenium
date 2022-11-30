@@ -32,7 +32,7 @@ class TestCard(BaseCase):
     expected_url = "https://movie-space.ru/movie/"
     # @pytest.mark.skip("SKIP")
 
-    def test_like_switching(self):
+    def test_card_switching(self):
         time.sleep(3)
         id_movie = self.base_page.driver.find_elements(self.button_locator[0], self.button_locator[1])[0].get_attribute("id")
         self.base_page.click(self.button_locator, 10)
@@ -45,7 +45,7 @@ class TestCardHover(BaseCase):
     button_locator = BasePage.locators.CARD
     # @pytest.mark.skip("SKIP")
 
-    def test_like_switching(self):
+    def test_card_hover(self):
         time.sleep(3)
         element = self.base_page.driver.find_elements(self.button_locator[0], self.button_locator[1])[0]
         styles_before = {

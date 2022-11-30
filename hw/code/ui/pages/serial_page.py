@@ -9,8 +9,8 @@ class SerialPage(BasePage):
     url = 'https://movie-space.ru/movie/29'
 
     def open(self):
-        time.sleep(2)
+        time.sleep(3)
         self.click(basic_locators.SeriesPageLocators.SERIAL_CARD_1, 10)
-        time.sleep(2)
+        time.sleep(3)
         self.is_opened(self.url, 10)
-        time.sleep(2)
+        time.sleep(3)
