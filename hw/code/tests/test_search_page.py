@@ -12,7 +12,7 @@ class TestSearch(BaseCase):
 
     restaurant_name = "Guava bar"
     category_name = "Суши"
-    max_length=101
+    max_length = 101
 
     @pytest.mark.parametrize(
         "query,expected_restaurant",
@@ -42,7 +42,7 @@ class TestSearch(BaseCase):
         assert self.page.have_nothing_found()
 
     def test_too_long_query(self):
-        self.page.search_wrong("q"*self.max_length)
+        self.page.search_wrong("q" * self.max_length)
         assert self.page.is_query_too_long()
 
     def test_category_search(self):

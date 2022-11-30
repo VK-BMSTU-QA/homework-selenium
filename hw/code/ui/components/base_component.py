@@ -11,6 +11,7 @@ import urllib.parse as urlparse
 from ui.locators import locators
 import json
 
+
 class PageNotOpenedExeption(Exception):
     pass
 
@@ -94,7 +95,6 @@ class BaseComponent(object):
     def has_text(self, elem, value):
         return elem.text == value
 
-
     def get_elem_text(self, locator, timeout=default_timeout):
         started = time.time()
         while time.time() - started < timeout:
@@ -104,7 +104,6 @@ class BaseComponent(object):
             except StaleElementReferenceException as Exception:
                 pass
         raise StaleTimeoutExeption(f"{locator} did not clickable or have been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
-
 
     def get_value(self, elem):
         return elem.get_attribute("value")
@@ -118,7 +117,6 @@ class BaseComponent(object):
             except StaleElementReferenceException as Exception:
                 pass
         raise StaleTimeoutExeption(f"{locator} did not clickable or have been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
-
 
     def find_all_elems(self, locator, timeout=default_timeout):
         return self.wait(timeout).until(EC.presence_of_all_elements_located(locator))
@@ -145,7 +143,6 @@ class BaseComponent(object):
             except StaleElementReferenceException as Exception:
                 pass
         raise StaleTimeoutExeption(f"{locator} did not clickable or have been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
-
 
     def send_keys_enter(self, locator, keys, timeout=default_timeout) -> WebElement:
         started = time.time()
@@ -175,14 +172,13 @@ class BaseComponent(object):
         started = time.time()
         while time.time() - started < timeout:
             try:
-                elem = self.find_all_elems(locator)[number-1]
+                elem = self.find_all_elems(locator)[number - 1]
                 elem = self.wait_to_be_clickable(elem, timeout - (time.time() - started))
                 elem.click()
                 return elem
             except StaleElementReferenceException as Exception:
                 pass
         raise StaleTimeoutExeption(f"{locator} did not clickable or have been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
-
 
     @contextmanager
     def wait_for_reload_elem(self, locator, timeout=default_timeout):

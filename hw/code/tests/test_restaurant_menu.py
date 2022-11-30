@@ -23,4 +23,3 @@ class TestMenuPage(BaseCase):
     def test_no_auth_add_to_cart_redirect_to_login(self):
         self.page.add_first_item_to_cart()
         assert self.page.is_url(paths.LOGIN)
-

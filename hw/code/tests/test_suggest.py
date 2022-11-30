@@ -49,7 +49,7 @@ class TestSuggestPage(BaseCase):
         assert self.page.is_active(new_address_input)
         assert self.page.has_value(new_address_input, self.moscow_suggest)
 
-    def test_full_address(self,open):
+    def test_full_address(self, open):
         self.page.get_suggests_full_address(self.full_address)
         assert self.page.is_first_suggest(self.full_address)
         self.page.choose_first_suggest()
@@ -57,7 +57,7 @@ class TestSuggestPage(BaseCase):
         new_address_input, new_address_value = self.page.get_address_value()
         assert self.page.is_invisible(self.page.locators.SUGGESTS)
         assert not self.page.is_active(new_address_input)
-        assert new_address_value ==  self.full_address
+        assert new_address_value == self.full_address
         assert self.page.is_url(paths.MAIN)
 
     def test_full_address_suggests(self, open):
