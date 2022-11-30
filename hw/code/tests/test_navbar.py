@@ -1,13 +1,17 @@
 from pageobjects.pages.login import LoginPage
+from pageobjects.pages.collections import CollectionsPage
 from tests.base_test_case import BaseTestCase
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 import os
-import time
 from selenium.webdriver import ActionChains
 
 class NavbarTest(BaseTestCase):
     def setUp(self):
         super().setUp()
-        self.page = LoginPage(self.driver)
+        self.loginPage = LoginPage(self.driver)
+        self.page = CollectionsPage(self.driver)
 
     def test_navigation_not_auth(self):
         self.page.open()    
@@ -32,8 +36,8 @@ class NavbarTest(BaseTestCase):
 
     
     def test_navigation_auth(self):
-        self.page.open()    
-        self.page.login(os.environ.get('AKINO_LOGIN'), os.environ.get('AKINO_PASSWORD'))
+        self.loginPage.open()    
+        self.loginPage.login(os.environ.get('AKINO_LOGIN'), os.environ.get('AKINO_PASSWORD'))
 
         self.assertEqual(self.page.btn_profile.is_displayed(), True)
 
@@ -55,13 +59,19 @@ class NavbarTest(BaseTestCase):
         self.page.open()
         
         self.page.btn_navbar_collections.click()
-        time.sleep(0.1)
+        wait = WebDriverWait(self.driver, 2)
+        wait.until(EC.visibility_of(self.page.btn_navbar_collections))
+
         self.assertEqual(self.page.btn_navbar_collections.value_of_css_property('color'), "rgba(171, 35, 255, 1)")
 
         self.page.btn_navbar_genres.click()
-        time.sleep(0.1)
+        wait = WebDriverWait(self.driver, 2)
+        wait.until(EC.visibility_of(self.page.btn_navbar_genres))
+
         self.assertEqual(self.page.btn_navbar_genres.value_of_css_property('color'), "rgba(171, 35, 255, 1)")
 
         self.page.btn_navbar_premiers.click()
-        time.sleep(0.1)
+        wait = WebDriverWait(self.driver, 2)
+        wait.until(EC.visibility_of(self.page.btn_navbar_premiers))
+
         self.assertEqual(self.page.btn_navbar_premiers.value_of_css_property('color'), "rgba(171, 35, 255, 1)")

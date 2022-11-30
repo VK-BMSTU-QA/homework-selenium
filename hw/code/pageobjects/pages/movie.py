@@ -121,5 +121,3 @@ class MoviePage(Page):
         self.movie_review_input.clear()
         self.movie_review_input.send_keys(text)
         self.movie_review_submit.click()
-
-

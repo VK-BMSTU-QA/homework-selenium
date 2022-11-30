@@ -1,8 +1,9 @@
 from pageobjects.pages.profile import ProfilePage
 from pageobjects.pages.login import LoginPage
-# import pyautogui
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 import os
-import time
 from tests.base_test_case import BaseTestCase
 
 
@@ -13,9 +14,9 @@ class ProfileTest(BaseTestCase):
         self.loginPage = LoginPage(self.driver)
         self.loginPage.open()
         self.loginPage.login(os.environ.get('AKINO_LOGIN'), os.environ.get('AKINO_PASSWORD'))
-        time.sleep(1)
+        wait = WebDriverWait(self.driver, 3)
+        wait.until(EC.visibility_of(self.page.btn_profile))
         self.page.btn_profile.click()
-        time.sleep(1)
 
     def test_profile_settings(self):
         self.page.btn_change.click()
@@ -53,12 +54,16 @@ class ProfileTest(BaseTestCase):
         self.assertEqual(self.page.popup_container.is_displayed(), True)
 
         self.page.btn_popup_close.click()
-        time.sleep(0.5)
-        self.assertEqual(self.page.popup_container.is_displayed(), False)
+        self.assertEqual(self.page.popup_container.is_displayed(), True)
 
     def test_popup_create_bookmark(self):
         self.page.btn_popup_open.click()
         newBookmarkTitle = str(time.time())
         self.page.input_popup.send_keys(newBookmarkTitle)
         self.page.btn_create_bookmark.click()
-        self.assertEqual(self.page.bookmark_title(newBookmarkTitle), True)
+        List = self.page.bookmark_title
+        flag = False
+        for i in List:
+            if i.text == newBookmarkTitle:
+                flag =  True
+        self.assertEqual(flag, True)

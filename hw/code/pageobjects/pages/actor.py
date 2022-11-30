@@ -11,6 +11,3 @@ class ActorPage(Page):
 
     def open(self):
         super().open('actors/90')
-
-
-

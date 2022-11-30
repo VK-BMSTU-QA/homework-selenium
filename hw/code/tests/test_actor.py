@@ -23,4 +23,3 @@ class ActorTest(BaseTestCase):
         self.page.actor_movies[0].click()
         wait = WebDriverWait(self.driver, 10)
         wait.until(EC.url_contains("movies"))
-

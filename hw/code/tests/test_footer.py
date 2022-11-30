@@ -18,5 +18,3 @@ class LoginTest(BaseTestCase):
         self.page.go_to_GH()
         # self.assertEqual("https://github.com/Kislv/2022_1_CoDex", self.driver.current_url)
         self.assertEqual("https://park-akino.ru/login", self.driver.current_url)
-
-
