@@ -12,7 +12,7 @@ class TestArrowsClick(BaseCase):
     button_right = BasePage.locators.BUTTON_ARROW_RIGHT
     button_left = BasePage.locators.BUTTON_ARROW_LEFT
 
-    # @pytest.mark.skip("SKIP")
+    
 
     def test_arrows_clicking(self):
         time.sleep(3)

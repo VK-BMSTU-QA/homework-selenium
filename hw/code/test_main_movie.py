@@ -11,7 +11,7 @@ class TestMainMovieButton(BaseCase):
     authorize = True
     button_locator =  BasePage.locators.BUTTON_MAIN_MOVIE
     expected_url = "https://movie-space.ru/player/"
-    # @pytest.mark.skip("SKIP")
+    
 
     def test_page_switching(self):
         time.sleep(1)
@@ -26,7 +26,7 @@ class TestMainMovieAboutButton(BaseCase):
     button_locator = BasePage.locators.BUTTON_ABOUT
     expected_url = "https://movie-space.ru/movie/"
 
-    # @pytest.mark.skip("SKIP")
+    
     def test_page_switching(self):
         time.sleep(1)
         movie_url = (self.base_page.driver.find_elements_by_xpath(BasePage.locators.HREF_MAIN)[0]).get_attribute('href')

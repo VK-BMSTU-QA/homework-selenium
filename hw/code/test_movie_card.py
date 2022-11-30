@@ -12,7 +12,7 @@ class TestLikeButton(BaseCase):
     authorize = True
     button_locator = BasePage.locators.BUTTON_LIKE
 
-    # @pytest.mark.skip("SKIP")
+    
 
     def test_like_switching(self):
         time.sleep(3)
@@ -33,7 +33,7 @@ class TestCard(BaseCase):
     button_locator = BasePage.locators.CARD
     expected_url = "https://movie-space.ru/movie/"
 
-    # @pytest.mark.skip("SKIP")
+    
 
     def test_card_switching(self):
         time.sleep(3)
@@ -49,7 +49,7 @@ class TestCardHover(BaseCase):
     authorize = True
     button_locator = BasePage.locators.CARD
 
-    # @pytest.mark.skip("SKIP")
+    
 
     def test_card_hover(self):
         time.sleep(3)
@@ -73,7 +73,7 @@ class TestEpisodeCard(BaseCase):
     element_locator = SeriesPage.locators.EPISODE_CARD
     expected_url = "https://movie-space.ru/player/"
 
-    # @pytest.mark.skip("SKIP")
+    
 
     def test_page_switching(self):
         time.sleep(3)

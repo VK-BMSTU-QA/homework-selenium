@@ -14,7 +14,7 @@ class TestSearchClick(BaseCase):
     button_search_close = BasePage.locators.BUTTON_CLOSE_SEARCH
     search = BasePage.locators.INPUT_SEARCH
 
-    # @pytest.mark.skip("SKIP")
+    
 
     def test_search_open_clicking(self):
         time.sleep(2)
@@ -52,7 +52,7 @@ class TestSearchData(BaseCase):
         ),
 
     ])
-    # @pytest.mark.skip("SKIP")
+    
 
     def test_search_categories(self, content, expected):
         time.sleep(2)
@@ -76,7 +76,7 @@ class TestSearchEmptyData(BaseCase):
     content = 'фильм/сериал/персона которого нет в базе'
     expected = 'Ничего не найдено'
 
-    # @pytest.mark.skip("SKIP")
+    
 
     def test_search_empty(self):
         time.sleep(2)
@@ -110,7 +110,7 @@ class TestSearchDataSwitch(BaseCase):
         ),
 
     ])
-    # @pytest.mark.skip("SKIP")
+    
 
     def test_search_switch(self, content, expected):
         time.sleep(2)

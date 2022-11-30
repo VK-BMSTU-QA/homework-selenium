@@ -34,7 +34,7 @@ class TestRating(BaseCase):
         ),
 
     ])
-    # @pytest.mark.skip("SKIP")
+    
 
     def test_rating_value(self,offset,range,expected_color):
         time.sleep(2)
@@ -55,7 +55,7 @@ class TestSearchEmptyData(BaseCase):
     expected_value = '–'
     expected_color = 'rgba(255, 255, 255, 1)'
     offset = -150
-    # @pytest.mark.skip("SKIP")
+    
 
     def test_search_empty(self):
         time.sleep(2)
