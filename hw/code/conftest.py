@@ -1,7 +1,10 @@
 import pytest
+from dotenv import load_dotenv
 from selenium import webdriver
 
-EXEC_PATH = r"./chromedriver"
+EXEC_PATH = r"/mnt/d/techpark/homework-selenium/chromedriver.exe"
+load_dotenv()  # LOGIN and PASSWORD
+
 
 @pytest.fixture(scope="session")
 def browser():
@@ -14,10 +17,11 @@ def browser():
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-gpu")
-    #options.add_argument("--headless")
+    # options.add_argument("--headless")
     driver = webdriver.Chrome(executable_path=EXEC_PATH, options=options)
     yield driver
     driver.quit()
+
 
 def pytest_configure():
     pytest.login = None
