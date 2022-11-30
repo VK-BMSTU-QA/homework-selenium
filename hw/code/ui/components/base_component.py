@@ -103,7 +103,7 @@ class BaseComponent(object):
                 return elem, elem.text
             except StaleElementReferenceException as Exception:
                 pass
-        raise StaleTimeoutExeption(f"{locator} did not clickable or hav been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
+        raise StaleTimeoutExeption(f"{locator} did not clickable or have been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
 
 
     def get_value(self, elem):
@@ -117,7 +117,7 @@ class BaseComponent(object):
                 return elem, elem.get_attribute("value")
             except StaleElementReferenceException as Exception:
                 pass
-        raise StaleTimeoutExeption(f"{locator} did not clickable or hav been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
+        raise StaleTimeoutExeption(f"{locator} did not clickable or have been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
 
 
     def find_all_elems(self, locator, timeout=default_timeout):
@@ -132,7 +132,7 @@ class BaseComponent(object):
                 return elem
             except StaleElementReferenceException as Exception:
                 pass
-        raise StaleTimeoutExeption(f"{locator} did not clickable or hav been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
+        raise StaleTimeoutExeption(f"{locator} did not clickable or have been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
 
     def send_keys(self, locator, keys, timeout=default_timeout) -> WebElement:
         started = time.time()
@@ -144,7 +144,7 @@ class BaseComponent(object):
                 return elem
             except StaleElementReferenceException as Exception:
                 pass
-        raise StaleTimeoutExeption(f"{locator} did not clickable or hav been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
+        raise StaleTimeoutExeption(f"{locator} did not clickable or have been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
 
 
     def send_keys_enter(self, locator, keys, timeout=default_timeout) -> WebElement:
@@ -158,7 +158,7 @@ class BaseComponent(object):
                 return elem
             except StaleElementReferenceException as Exception:
                 pass
-        raise StaleTimeoutExeption(f"{locator} did not clickable or hav been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
+        raise StaleTimeoutExeption(f"{locator} did not clickable or have been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
 
     def click(self, locator, timeout=default_timeout) -> WebElement:
         started = time.time()
@@ -169,7 +169,7 @@ class BaseComponent(object):
                 return elem
             except StaleElementReferenceException as Exception:
                 pass
-        raise StaleTimeoutExeption(f"{locator} did not clickable or hav been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
+        raise StaleTimeoutExeption(f"{locator} did not clickable or have been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
 
     def click_number(self, locator, number, timeout=default_timeout) -> WebElement:
         started = time.time()
@@ -181,7 +181,7 @@ class BaseComponent(object):
                 return elem
             except StaleElementReferenceException as Exception:
                 pass
-        raise StaleTimeoutExeption(f"{locator} did not clickable or hav been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
+        raise StaleTimeoutExeption(f"{locator} did not clickable or have been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
 
 
     @contextmanager
@@ -200,4 +200,4 @@ class BaseComponent(object):
                 return elem
             except StaleElementReferenceException as Exception:
                 pass
-        raise StaleTimeoutExeption(f"{locator} did not clickable or hav been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
+        raise StaleTimeoutExeption(f"{locator} did not clickable or have been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
