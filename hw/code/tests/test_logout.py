@@ -11,29 +11,18 @@ class TestLogout(BaseCase):
         self.driver = driver
         self.page = LogoutComponent(driver, url_config)
 
-    def test_logout_from_profile(self, authorize):
-        self.page.open_path(paths.PROFILE)
-        assert self.page.is_url(paths.PROFILE)
-
-        self.page.click(self.page.locators.PROFILE_BUTTON)
-        assert self.page.is_url(paths.PROFILE_MENU)
-
-        self.page.click(self.page.locators.LOGOUT_BUTTON)
-        assert self.page.is_url(paths.MAIN)
-
-    def test_logout_from_restaurant(self, authorize):
-        self.page.open_path(paths.GUAVA_DISHES)
-        assert self.page.is_url(paths.GUAVA_DISHES)
-
-        self.page.click(self.page.locators.PROFILE_BUTTON)
-        assert self.page.is_url(paths.PROFILE_MENU)
-
-        self.page.click(self.page.locators.LOGOUT_BUTTON)
-        assert self.page.is_url(paths.GUAVA_DISHES)
+    @pytest.mark.parametrize(
+        "src_path,redirect_path",
+        [
+            (paths.GUAVA_DISHES, paths.GUAVA_DISHES),
+            (paths.PROFILE, paths.MAIN),
+        ],
+    )
+    def test_logout_from_pages(self, authorize, src_path, redirect_path):
+        self.page.open_path(src_path)
+        self.page.logout()
+        assert self.page.is_url(redirect_path)
 
     def test_logout_from_order_history(self, authorize, order):
-        self.page.click(self.page.locators.PROFILE_BUTTON)
-        assert self.page.is_url(paths.PROFILE_MENU)
-
-        self.page.click(self.page.locators.LOGOUT_BUTTON)
+        self.page.logout()
         assert self.page.is_url(paths.MAIN)

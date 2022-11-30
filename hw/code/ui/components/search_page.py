@@ -9,11 +9,13 @@ class SearchPage(BaseComponent):
 
     def search_with_result(self, query):
         self.click(self.locators.SEARCH_BUTTON)
+        self.wait_visability_of_elem(self.locators.SEARCH_AREA)
         with self.wait_for_reload_elem(self.locators.RESTAURANT_CART):
             self.send_keys_enter(self.locators.SEARCH_INPUT, query)
 
     def search_wrong(self, query):
         self.click(self.locators.SEARCH_BUTTON)
+        self.wait_visability_of_elem(self.locators.SEARCH_AREA)
         self.send_keys_enter(self.locators.SEARCH_INPUT, query)
         self.wait_visability_of_elem(self.locators.UI_NOTIFICATION)
 

@@ -1,11 +1,7 @@
 import pytest
 from ui.paths import paths
-from selenium.webdriver.support import expected_conditions as EC
 from ui.components.promo_codes_element import PromoCodesElement
-from ui.locators import locators
 from ui.base_case.base_case import BaseCase
-from _pytest.fixtures import FixtureRequest
-import time
 
 
 class TestMenuPage(BaseCase):
@@ -16,5 +12,5 @@ class TestMenuPage(BaseCase):
 
     def test_promo_code(self, authorize, set_address):
         self.page.click(self.page.locators.PROMO_CODE)
-        assert self.page.is_url(paths.CART)
         assert self.page.is_visible(self.page.locators.PROMO_CODE_RESET)
+        assert self.page.is_url(paths.CART)

@@ -2,10 +2,9 @@ import pytest
 from ui.paths import paths
 from ui.components.suggests_page import SuggestPage
 from ui.base_case.base_case import BaseCase
-import time
 
 
-class TestSuPage(BaseCase):
+class TestSuggestPage(BaseCase):
     @pytest.fixture(scope="function", autouse=True)
     def set_page(self, driver, url_config):
         self.driver = driver
