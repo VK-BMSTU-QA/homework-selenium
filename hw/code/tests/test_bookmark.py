@@ -10,7 +10,11 @@ class BookmarkTest(BaseTestCase):
 
     def test_movie(self):
         self.page.open()
-        self.page.movie_img.click()
+        img = self.page.movie_img
+        if img == None:
+            print('log: no movies in bookmark. Fill it with films first to test')
+            return
+        img.click()
         self.assertTrue(
             'https://park-akino.ru/movies/' in self.page.driver.current_url,
             'Movie test'
@@ -19,7 +23,11 @@ class BookmarkTest(BaseTestCase):
     def test_remove_movie(self):
         self.page.open()
         oldlen = len(self.page.movie_cards)
-        self.page.remove_movie_btn.click()
+        btn = self.page.remove_movie_btn
+        if btn == None:
+            print('log: no movies in bookmark. Fill it with films first to test')
+            return
+        btn.click()
         el = self.page.notify_msg
         self.assertTrue(
             el != None and
@@ -41,7 +49,7 @@ class BookmarkTest(BaseTestCase):
     def test_remove_bookmark_cancel(self):
         self.page.open()
         self.page.remove_bookmark_btn.click()
-        self.page.popup_cancel_btn(self.page.popup).click()
+        self.page.popup_cancel_btn.click()
         self.assertTrue(self.page.popup == None, 'Remove bookmark cancel test')
 
     def test_remove_bookmark_sub(self):

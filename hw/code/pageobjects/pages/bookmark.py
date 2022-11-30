@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.keys import Keys
 import os
 import time
 
@@ -50,11 +51,17 @@ class BookmarkPage(Page):
 
     @property
     def movie_img(self):
-        return self.driver.find_element(by=By.CLASS_NAME, value="movie__image")
+        try:
+            return self.driver.find_element(by=By.CLASS_NAME, value="movie__image")
+        finally:
+            return None
 
     @property
     def remove_movie_btn(self):
-        return self.driver.find_element(by=By.CLASS_NAME, value="movie__body__info__data__title__delete-movie-btn")
+        try:
+            return self.driver.find_element(by=By.CLASS_NAME, value="movie__body__info__data__title__delete-movie-btn")
+        finally:
+            return None
 
     @property
     def notify_msg(self):
@@ -71,8 +78,7 @@ class BookmarkPage(Page):
     def change_title(self, newtitle):
         tmp = self.bookmark_title
         tmp.send_keys(newtitle)
-        self.driver.find_element(
-            by=By.CLASS_NAME, value="movie__body__description").click()  # to commit changes
+        tmp.send_keys(Keys.ENTER)
 
     @property
     def popup(self):
@@ -91,8 +97,8 @@ class BookmarkPage(Page):
 
     @property
     def popup_sub_btn(self):
-        return self.driver.find_element(by=By.CLASS_NAME, value="bookmark-submit")
+        return WebDriverWait(self.driver, 1).until(ec.visibility_of_element_located((By.CLASS_NAME, 'bookmark-submit')))
 
-    def popup_cancel_btn(self, el):
-        #return el.find_element(by=By.CLASS_NAME, value="")
+    @property
+    def popup_cancel_btn(self):
         return WebDriverWait(self.driver, 1).until(ec.visibility_of_element_located((By.CLASS_NAME, 'bookmark-cancel')))
