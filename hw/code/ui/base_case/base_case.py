@@ -20,9 +20,10 @@ class BaseCase:
 
     @pytest.fixture(scope="function")
     def authorize(self, request: FixtureRequest):
-        self.driver.delete_all_cookies()
         cookies = request.getfixturevalue("cookies")
         for cookie in cookies:
+            # cookie['domain'] = ''
+            # print(cookie)
             self.driver.add_cookie(cookie)
 
         self.driver.refresh()
