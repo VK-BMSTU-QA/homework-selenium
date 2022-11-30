@@ -78,9 +78,7 @@ class CartLocators(BasePageLocators):
     INCREMENT_DISH_COUNT = (By.CLASS_NAME, "incrementDishCount")
     COUNT_OF_DISHES = (By.CLASS_NAME, "point-info__count-current-point")
     PRICE = (By.CLASS_NAME, "button__controller_with-price")
-    # ADD_SECOND_DISH = (By.XPATH, '//*[@id="root"]/main/div[3]/section[2]/div[2]/div[4]/button')
     SECOND_DISH_IN_CART = (By.XPATH, '//section[@class="shopping-cart__order-point"][2]')
-    # COUNT_SECOND_DISHES = (By.XPATH, '//*[@id="modal"]/div/div[2]/section[2]/div[2]/div[3]/div[2]')
     ORDER_BUTTON = (By.ID, "orderButton")
 
 
