@@ -1,15 +1,5 @@
-# Предварительно необходимо установить 
+> python3 -m venv venv
 
-1. Библиотеки pytest, pyautogui.
+> source venv/bin/activate
 
-```
-pip install pytest
-pip install pyautogui
-```
-
-2. Пакеты python3-tk, python3-dev.
-
-```
-sudo apt-get install python3-tk 
-sudo apt-get install python3-dev
-```
+> pip install requirements.txt
