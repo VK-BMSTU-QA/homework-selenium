@@ -29,7 +29,6 @@ class TestHeaderButtons(BaseCase):
         ),
         ])
     
-    # @pytest.mark.skip("SKIP")
     def test_page_switching(self, button_locator,expected_url):
         self.base_page.click(button_locator, 10)
         assert str(self.driver.current_url) == expected_url
