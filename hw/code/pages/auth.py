@@ -20,7 +20,7 @@ class AuthPage(BasePage):
         password_input.send_keys(password)
         login_button = self.find_element(AuthLocators.LOGIN_BUTTON)
         login_button.click()
-        time.sleep(1)
+        time.sleep(0.5)
 
     def get_error_messages(self):
         error_messages = self.find_elements(AuthLocators.ANY_ERROR, soft=True)

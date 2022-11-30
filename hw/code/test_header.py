@@ -59,5 +59,6 @@ def test_change_color_theme(browser):
     draft_page.click(HeaderLocators.COLOR_MENU_BUTTON)
     draft_page.click(HeaderLocators.GREEN_BUTTON)
 
+    time.sleep(1)
     header_color = draft_page.get_css_property(HeaderLocators.HEADER, 'background-color')
     assert header_color == 'rgba(145, 232, 150, 1)'  # green color

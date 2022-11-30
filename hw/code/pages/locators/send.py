@@ -7,6 +7,7 @@ class SendLocators:
     ADDRESS_INPUT = (By.ID, "inputLogin")
     THEME_INPUT = (By.ID, "themeInput")
     TEXT_INPUT = (By.ID, "textareaMain")
+    FILE_INPUT = (By.ID, "inputTmp")
     SEND_BUTTON = (By.ID, "sendButton")
     MENU_DRAFT_BUTTON = (By.ID, "draft")
     MENU_INCOME_BUTTON = (By.ID, "income")

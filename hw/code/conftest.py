@@ -1,7 +1,10 @@
 import pytest
+from dotenv import load_dotenv
 from selenium import webdriver
 
 EXEC_PATH = r"/mnt/d/techpark/homework-selenium/chromedriver.exe"
+load_dotenv()  # LOGIN and PASSWORD
+
 
 @pytest.fixture(scope="session")
 def browser():
@@ -18,6 +21,7 @@ def browser():
     driver = webdriver.Chrome(executable_path=EXEC_PATH, options=options)
     yield driver
     driver.quit()
+
 
 def pytest_configure():
     pytest.login = None
