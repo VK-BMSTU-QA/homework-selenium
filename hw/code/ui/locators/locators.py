@@ -79,8 +79,8 @@ class CartLocators(BasePageLocators):
     ]
     CART = (By.CLASS_NAME, "shopping-cart")
     DECREMENT_DISH_COUNT = [
-         (By.XPATH, "(//img[@class='decrementDishCount'])[1]"),
-         (By.XPATH, "(//img[@class='decrementDishCount'])[2]"),
+        (By.XPATH, "(//img[@class='decrementDishCount'])[1]"),
+        (By.XPATH, "(//img[@class='decrementDishCount'])[2]"),
     ]
     INCREMENT_DISH_COUNT = [
         (By.XPATH, "(//img[contains(@class,'incrementDishCount')])[1]"),
