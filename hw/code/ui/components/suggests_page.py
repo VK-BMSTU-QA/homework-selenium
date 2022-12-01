@@ -7,7 +7,7 @@ import time
 class SuggestPage(BaseComponent):
     locators = locators.SuggestPageLocators()
     PATH = paths.SUGGESTS
-    debounce_timeout = 1
+    DEBOUNCE_TIMEOUT = 1
 
     def activate_address_input(self):
         search_input = self.click(self.locators.ADDRESS_INPUT)
@@ -40,7 +40,7 @@ class SuggestPage(BaseComponent):
 
     def get_suggests_full_address(self, address):
         self.get_suggests(address[:-1])
-        time.sleep(2)
+        time.sleep(self.DEBOUNCE_TIMEOUT)
         self.get_suggests(address[-1])
 
     def get_elem_text_first_suggest(self):

@@ -12,14 +12,20 @@ class TestSearch(BaseCase):
 
     restaurant_name = "Guava bar"
     category_name = "Суши"
-    max_length = 101
+    MAX_LENGTH_QUERY = 101
+    TOO_LONG_QUERY = "q" * MAX_LENGTH_QUERY
+    NON_EXISTENT_QUERY = "ъъъъъъъъъ"
+    GUAVA_BAR_EXTRA_SPACE = "Guava   bar"
+    GUAVA_BAR_WRONG_CASE = "gUAVA bar"
+    EMPY = ""
+    SPACES = "   "
 
     @pytest.mark.parametrize(
         "query,expected_restaurant",
         [
             (restaurant_name, restaurant_name),
-            ("gUAVA bar", restaurant_name),
-            ("Guava   bar", restaurant_name),
+            (GUAVA_BAR_WRONG_CASE, restaurant_name),
+            (GUAVA_BAR_EXTRA_SPACE, restaurant_name),
         ],
     )
     def test_search_restaurant(self, query, expected_restaurant):
@@ -29,20 +35,20 @@ class TestSearch(BaseCase):
     @pytest.mark.parametrize(
         "query",
         [
-            (""),
-            ("    "),
+            (EMPY),
+            (SPACES),
         ],
     )
     def test_search_restaurant_empty_query(self, query):
         self.page.search_with_result(query)
-        assert self.page.is_url(paths.MAIN)
+        assert self.page.is_url_matches(paths.MAIN)
 
     def test_nonexistent_query(self):
-        self.page.search_with_result("ъъъъъъъъъ")
+        self.page.search_with_result(self.NON_EXISTENT_QUERY)
         assert self.page.have_nothing_found()
 
     def test_too_long_query(self):
-        self.page.search_wrong("q" * self.max_length)
+        self.page.search_wrong(self.TOO_LONG_QUERY)
         assert self.page.is_query_too_long()
 
     def test_category_search(self):

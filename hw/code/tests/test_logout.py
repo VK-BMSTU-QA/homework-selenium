@@ -21,8 +21,8 @@ class TestLogout(BaseCase):
     def test_logout_from_pages(self, authorize, src_path, redirect_path):
         self.page.open_path(src_path)
         self.page.logout()
-        assert self.page.is_url(redirect_path)
+        assert self.page.is_url_matches(redirect_path)
 
     def test_logout_from_order_history(self, authorize, order):
         self.page.logout()
-        assert self.page.is_url(paths.MAIN)
+        assert self.page.is_url_matches(paths.MAIN)

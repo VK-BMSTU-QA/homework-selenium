@@ -7,7 +7,7 @@ import time
 
 
 class BaseCase:
-    full_address = "Москва, Кравченко Улица, 22"
+    FULL_ADDRESS = "Москва, Кравченко Улица, 22"
 
     @pytest.fixture(scope="function", autouse=True)
     def set_page(self, driver, url_config):
@@ -34,7 +34,7 @@ class BaseCase:
 
     @pytest.fixture(scope="function")
     def set_address(self):
-        self.driver.execute_script(f"window.localStorage.setItem('address','{self.full_address}');")
+        self.driver.execute_script(f"window.localStorage.setItem('address','{self.FULL_ADDRESS}');")
 
     @pytest.fixture(scope="function")
     def fill_cart(self, set_address):

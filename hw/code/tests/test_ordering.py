@@ -17,9 +17,9 @@ class TestOrdering(BaseCase):
 
     def test_back_button_click(self, authorize, fill_cart, open):
         self.page.click(self.page.locators.BACK_BUTTON)
-        assert self.page.is_url(paths.GUAVA_DISHES)
+        assert self.page.is_url_matches(paths.GUAVA_DISHES)
 
     def test_pay_button_click(self, authorize, fill_cart, open):
         self.page.click(self.page.locators.PAY_BUTTON)
         assert self.page.is_visible(self.page.locators.SAVE_SUCCESS)
-        assert self.page.is_url(paths.ORDER_HISTORY)
+        assert self.page.is_url_matches(paths.ORDER_HISTORY)

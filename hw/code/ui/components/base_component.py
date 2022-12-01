@@ -73,6 +73,13 @@ class BaseComponent(object):
             return False
         return True
 
+    def is_elem_visible(self, elem, timeout=mini_timeout):
+        try:
+            self.wait(timeout).until(EC.visibility_of(elem))
+        except TimeoutException:
+            return False
+        return True
+
     def is_invisible(self, locator, timeout=mini_timeout):
         try:
             self.wait(timeout).until(EC.invisibility_of_element_located(locator))
@@ -80,7 +87,7 @@ class BaseComponent(object):
             return False
         return True
 
-    def is_url(self, path):
+    def is_url_matches(self, path):
         return EC.url_matches(urlparse.urljoin(self.BASE_URL, path))
 
     def is_active(self, elem):

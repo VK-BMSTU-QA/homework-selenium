@@ -13,4 +13,4 @@ class TestMenuPage(BaseCase):
     def test_promo_code(self, authorize, set_address):
         self.page.click(self.page.locators.PROMO_CODE)
         assert self.page.is_visible(self.page.locators.PROMO_CODE_RESET)
-        assert self.page.is_url(paths.CART)
+        assert self.page.is_url_matches(paths.CART)
