@@ -8,3 +8,4 @@ wheel~=0.37.0
 cryptography~=38.0.1
 py~=1.10.0
 setuptools~=59.0.1
+webdriver-manager

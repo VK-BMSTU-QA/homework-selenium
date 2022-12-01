@@ -40,20 +40,20 @@ class TestSuggestPage(BaseCase):
     )
     def test_suggest(self, open, query, expected_suggest):
         self.page.get_suggests(query)
-        assert self.page.is_first_suggest(expected_suggest)
+        assert self.page.get_text_first_suggest() == expected_suggest
 
     def test_choose_suggest(self, open):
         self.page.get_suggests("М")
-        assert self.page.is_first_suggest(self.MOSCOW_SUGGEST)
+        assert self.page.get_text_first_suggest() == self.MOSCOW_SUGGEST
         self.page.choose_first_suggest()
 
         new_address_input, new_address_value = self.page.get_address_value()
         assert self.page.is_active(new_address_input)
-        assert self.page.has_value(new_address_input, self.MOSCOW_SUGGEST)
+        assert self.page.get_value(new_address_input) == self.MOSCOW_SUGGEST
 
     def test_full_address(self, open):
         self.page.get_suggests_full_address(self.FULL_ADDRESS)
-        assert self.page.is_first_suggest(self.FULL_ADDRESS)
+        assert self.page.get_text_first_suggest() == self.FULL_ADDRESS
         self.page.choose_first_suggest()
 
         new_address_input, new_address_value = self.page.get_address_value()
@@ -66,7 +66,7 @@ class TestSuggestPage(BaseCase):
         self.page.get_suggests(self.MOSCOW_SUGGEST)
         self.page.choose_first_suggest()
         self.page.choose_first_suggest()
-        first_suggest_text = self.page.get_elem_text_first_suggest()
+        first_suggest_text = self.page.get_text_first_suggest()
         self.page.choose_first_suggest()
 
         new_address_input, new_address_value = self.page.get_address_value()

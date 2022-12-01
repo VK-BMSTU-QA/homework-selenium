@@ -10,6 +10,8 @@ class TestHeader(BaseCase):
         self.driver = driver
         self.page = HeaderComponent(driver, url_config)
 
+    EMPTY = ""
+
     def test_go_to_mainpage(self):
         self.page.open_path(paths.TACOLAND_DISHES)
         self.page.click_to_logo()
@@ -20,7 +22,7 @@ class TestHeader(BaseCase):
         address_elem = self.page.open_address()
         assert self.page.is_url_matches(paths.SUGGESTS)
         assert self.page.is_active(address_elem)
-        assert self.page.has_value(address_elem, "")
+        assert self.page.get_value(address_elem) ==  self.EMPTY
         assert self.page.is_visible(self.page.locators.SUGGESTS)
 
     def test_close_address(self):

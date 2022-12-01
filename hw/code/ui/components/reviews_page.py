@@ -21,7 +21,7 @@ class ReviewsElement(BaseComponent):
         self.wait_visability_of_elem(self.locators.REVIEWS_HEADER)
 
     def get_first_review_text(self):
-        return self.get_elem_text(self.locators.REVIEW_TEXT)[1]
+        return self.get_text(self.locators.REVIEW_TEXT)
 
     def get_first_review_stars(self):
-        return self.get_elem_text(self.locators.REVIEW_STARS)[1]
+        return self.get_text(self.locators.REVIEW_STARS)

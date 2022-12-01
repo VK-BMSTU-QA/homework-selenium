@@ -73,16 +73,36 @@ class RestaurantMenuLocators(BasePageLocators):
 
 
 class CartLocators(BasePageLocators):
-    ADD_TO_CART_BUTTON = (By.CLASS_NAME, "dish-icon__button-add-to-order")
+    ADD_TO_CART_BUTTON = [
+        (By.XPATH, "(//button[contains(@class,'dish-icon__button-add-to-order')])[1]"),
+        (By.XPATH, "(//button[contains(@class,'dish-icon__button-add-to-order')])[2]"),
+    ]
     CART = (By.CLASS_NAME, "shopping-cart")
-    DECREMENT_DISH_COUNT = (By.XPATH, "//img[@class='decrementDishCount']")
-    INCREMENT_DISH_COUNT = (By.XPATH, "//img[@class='incrementDishCount']")
-    COUNT_OF_CERTAIN_DISH_IN_CART = (By.CLASS_NAME, "point-info__count-current-point")
-    PRICE = (By.CLASS_NAME, "button__controller_with-price")
-    DISH_IN_CART = (By.XPATH, '//section[@class="shopping-cart__order-point"]')
+    DECREMENT_DISH_COUNT = [
+         (By.XPATH, "(//img[@class='decrementDishCount'])[1]"),
+         (By.XPATH, "(//img[@class='decrementDishCount'])[2]"),
+    ]
+    INCREMENT_DISH_COUNT = [
+        (By.XPATH, "(//img[contains(@class,'incrementDishCount')])[1]"),
+        (By.XPATH, "(//img[contains(@class,'incrementDishCount')])[2]"),
+    ]
+    COUNT_OF_DISH_IN_CART = [
+        (By.XPATH, "(//div[contains(@class,'point-info__count-current-point')])[1]"),
+        (By.XPATH, "(//div[contains(@class,'point-info__count-current-point')])[2]"),
+    ]
+    DISH_IN_CART = [
+        (By.XPATH, '(//section[contains(@class,"shopping-cart__order-point")])[1]'),
+        (By.XPATH, '(//section[contains(@class,"shopping-cart__order-point")])[2]'),
+    ]
     ORDER_BUTTON = (By.ID, "orderButton")
-    PRICE_OF_DISH_IN_CART = (By.CLASS_NAME, "dish-info__price-bold")
-    PRICE_OF_DISH_IN_MENU = (By.XPATH, "//div[@class='dish-icon__price-bar']/div[contains(text(),'₽')]")
+    PRICE_OF_DISH_IN_CART = [
+        (By.XPATH, "(//div[contains(@class,'dish-info__price-bold')])[1]"),
+        (By.XPATH, "(//div[contains(@class,'dish-info__price-bold')])[2]"),
+    ]
+    PRICE_OF_DISH_IN_MENU = [
+        (By.XPATH, "(//div[@class='dish-icon__price-bar']/div[contains(text(),'₽')])[1]"),
+        (By.XPATH, "(//div[@class='dish-icon__price-bar']/div[contains(text(),'₽')])[2]"),
+    ]
 
 
 class RecommendationsLocators(BasePageLocators):
