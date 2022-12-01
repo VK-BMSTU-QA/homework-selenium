@@ -13,4 +13,5 @@ class SendLocators:
     MENU_INCOME_BUTTON = (By.ID, "income")
     POPUP_DRAFT_SAVE_BUTTON = (By.ID, 'create')
     POPUP_DRAFT_CANCEL_BUTTON = (By.ID, 'prev')
-
+    EMPTY_THEM_BUTTON = (By.ID, 'primBtn')
+    ERROR_BOX = (By.CLASS_NAME, 'messageErrorBoxL ')
