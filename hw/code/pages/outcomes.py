@@ -28,6 +28,7 @@ class OutcomePage(BasePage):
         item.click()
         del_but = self.find_element(OutcomeLocators.REMOVE, soft=True)
         del_but.click()
+        time.sleep(0.5)
 
     def is_redirected(self, url) -> bool:
         return self.is_url_endswith(url)

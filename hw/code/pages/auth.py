@@ -9,8 +9,8 @@ from .locators.auth_reg import AuthLocators
 class AuthPage(BasePage):
 
     def __init__(self, driver):
-        super().__init__(driver, add_url="login")   
-    
+        super().__init__(driver, add_url="login")
+
     def login(self, login, password):
         login_input = self.find_element(AuthLocators.LOGIN_INPUT)
         login_input.clear()

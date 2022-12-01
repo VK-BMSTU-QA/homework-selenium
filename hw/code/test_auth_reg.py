@@ -2,6 +2,11 @@ import pytest
 from pages.auth import AuthPage
 import random
 
+LOGIN_EXISTS = 'test'
+BADLOGIN = 'тест'
+MAX_LENGTH = 45
+
+
 def get_register(browser):
     auth_page = AuthPage(browser)
     auth_page.go_to_site()
@@ -9,15 +14,8 @@ def get_register(browser):
 
 def test_register_error_empty(browser):
     register_page = get_register(browser)
-    data = {
-        'first_name': register_page.is_first_name_error,
-        'last_name': register_page.is_last_name_error,
-        'login': register_page.is_login_error,
-        'password': register_page.is_password_error,
-        'confirm_password': register_page.is_confirm_password_error,
-    }
-    kwargs = dict([(key, 'test') for key in data.keys()])
-    for field, func in data.items():
+    kwargs = dict([(key, 'test') for key in register_page.data.keys()])
+    for field, func in register_page.data.items():
         kw_new = kwargs.copy()
         kw_new[field] = ''
         register_page.register(**kw_new)
@@ -25,17 +23,9 @@ def test_register_error_empty(browser):
         assert len(register_page.get_error_messages()) == (2 if field in ['password', 'confirm_password'] else 1)
 
 def test_register_error_long(browser):
-    MAX_LENGTH = 45
     register_page = get_register(browser)
-    data = {
-        'first_name': register_page.is_first_name_error,
-        'last_name': register_page.is_last_name_error,
-        'login': register_page.is_login_error,
-        'password': register_page.is_password_error,
-        'confirm_password': register_page.is_confirm_password_error,
-    }
-    kwargs = dict([(key, 'test') for key in data.keys()])
-    for field, func in data.items():
+    kwargs = dict([(key, 'test') for key in register_page.data.keys()])
+    for field, func in register_page.data.items():
         kw_new = kwargs.copy()
         kw_new[field] = 'a' * (MAX_LENGTH + 1)
         register_page.register(**kw_new)
@@ -43,14 +33,12 @@ def test_register_error_long(browser):
         assert len(register_page.get_error_messages()) == (2 if field in ['password', 'confirm_password'] else 1)
 
 def test_register_error_exists(browser):
-    LOGIN_EXISTS = 'test'
     register_page = get_register(browser)
     register_page.register('test', 'test', LOGIN_EXISTS, 'test', 'test')
     assert register_page.is_login_error() is True
     assert len(register_page.get_error_messages()) == 1
 
 def test_register_error_badlogin(browser):
-    BADLOGIN = 'тест'
     register_page = get_register(browser)
     register_page.register('test', 'test', BADLOGIN, 'test', 'test')
     assert register_page.is_login_error() is True
@@ -97,7 +85,6 @@ def test_auth_error_badpair(browser):
     assert len(auth_page.get_error_messages()) == 2
 
 def test_auth_error_long(browser):
-    MAX_LENGTH = 45
     auth_page = AuthPage(browser)
     auth_page.go_to_site()
     auth_page.login('normal', 'a' * (MAX_LENGTH + 1))
@@ -106,7 +93,6 @@ def test_auth_error_long(browser):
     assert len(auth_page.get_error_messages()) == 1
 
 def test_auth_error_badlogin(browser):
-    BADLOGIN = 'тест'
     auth_page = AuthPage(browser)
     auth_page.go_to_site()
     auth_page.login(BADLOGIN, 'test')

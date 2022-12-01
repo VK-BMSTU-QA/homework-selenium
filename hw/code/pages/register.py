@@ -8,6 +8,14 @@ class RegisterPage(BasePage):
         super().__init__(driver, add_url="registration")
         # wait for page to load
         self.find_element(RegisterLocators.REGISTER_BUTTON)
+        self.data = {
+            'first_name': self.is_first_name_error,
+            'last_name': self.is_last_name_error,
+            'login': self.is_login_error,
+            'password': self.is_password_error,
+            'confirm_password': self.is_confirm_password_error,
+        }
+
 
     def register(self, first_name, last_name, login, password, confirm_password):
         first_name_input = self.find_element(RegisterLocators.FIRSTNAME_INPUT)

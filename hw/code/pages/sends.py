@@ -42,10 +42,6 @@ class SendPage(BasePage):
 
         self.fill_message(mes)
 
-        # if attach != '':
-        #     attach_input = self.find_element(SendLocators.FILE_INPUT)
-        #     attach_input.send_keys(attach)
-
         send_button = self.find_element(SendLocators.SEND_BUTTON)
         send_button.click()
 
