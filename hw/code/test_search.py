@@ -1,9 +1,6 @@
-import os.path
+
 import time
-
 import pytest
-from selenium.webdriver import ActionChains
-
 from hw.code.ui.pages.base_page import BasePage
 from hw.code.ui.base_case import BaseCase
 
