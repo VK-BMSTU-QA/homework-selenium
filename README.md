@@ -8,11 +8,12 @@ source venv/bin/activate
 ```
 pip install -r requirements.txt
 ```
-```
-brew install python-tk@3.9 python3-dev
-```
 
 3. Устанавливаем пакеты.
 ```
 sudo apt-get install python3-tk python3-dev
+```
+Или  
+```
+brew install python-tk@3.9 python3-dev
 ```
