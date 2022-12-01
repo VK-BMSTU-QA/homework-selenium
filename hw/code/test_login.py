@@ -9,6 +9,10 @@ from ui.pages.login import LoginPage
 
 class TestLoginErrors:
     url = 'https://movie-space.ru/login'
+    EMPTY_PASS = 'empty_pass'
+    EMPTY_EMAIL = 'empty_email'
+    RANDOM_EMAIL = '2356fhnudffjrmcuawerl@gogol.ya'
+    RANDOM_PASS = 'random_unknown_password_hgyur34rtyrfq34134fjiu'
 
     @pytest.fixture(scope='function', autouse=True)
     def setup(self, driver, config, request: FixtureRequest):
@@ -20,15 +24,15 @@ class TestLoginErrors:
         self.password_input = self.login_page.find(self.login_page.locators.PASSWORD_INPUT, 10)
 
     def test_wrong_email(self):
-        self.login_page.send_keys(self.login_input, 'empty_email')
-        self.login_page.send_keys(self.password_input, 'empty_pass')
+        self.login_page.send_keys(self.login_input, self.EMPTY_EMAIL)
+        self.login_page.send_keys(self.password_input, self.EMPTY_PASS)
         
         notification = self.login_page.wait_visability_of_elem(self.login_page.locators.LOGIN_NOTIFICATION)
         
         assert str(notification.text) == 'Введите действительный email' 
 
     def test_empty_email(self):
-        self.login_page.send_keys(self.login_input, 'empty_login')
+        self.login_page.send_keys(self.login_input, self.EMPTY_EMAIL)
         self.login_page.send_keys(self.login_input, '')
 
         self.login_page.send_keys(self.password_input, '')
@@ -38,7 +42,7 @@ class TestLoginErrors:
         assert str(notification.text) == 'Заполните поле' 
     
     def test_empty_password(self):
-        self.login_page.send_keys(self.password_input, 'empty_pass')
+        self.login_page.send_keys(self.password_input, self.EMPTY_PASS)
         self.login_page.send_keys(self.password_input, '')
         
         self.login_page.send_keys(self.login_input, '')
@@ -48,9 +52,8 @@ class TestLoginErrors:
         assert str(notification.text) == 'Заполните поле' 
 
     def test_user_unexist(self):
-        self.login_page.send_keys(self.password_input, 'random_unknown_password_hgyur34rtyrfq34134fjiu')
-       
-        self.login_page.send_keys(self.login_input, '2356fhnudffjrmcuawerl@gogol.ya')
+        self.login_page.send_keys(self.login_input, self.RANDOM_EMAIL)
+        self.login_page.send_keys(self.password_input, self.RANDOM_PASS)
 
         self.login_page.click((self.login_page.locators.PASS_LOGIN_CREDS_BUTTON), 10)
 

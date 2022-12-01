@@ -7,16 +7,22 @@ from ui.base_case import BaseCase
 
 class TestProfileContacts(BaseCase):
     authorize = True
-    
+
+    NEW_USERNAME= 'NewUserName'
+    SHORT_PASS = 'short'
+    EMPTY_PASS = 'empty_pass'
+    ONLY_NUMBERS_PASS = '12345678'
+    ONLY_LETTERS_PASS = 'abcdefgh'
+    NORMAL_PASS = 'abcdefgh123'
+
     def test_change_username(self):
         self.profile_page.open()
 
         input_field = self.profile_page.find(self.profile_page.locators.LOGIN_INPUT, 15)
 
         old_username = input_field.get_attribute('value')
-        
-        new_username = 'NewUserName'
-        self.profile_page.send_keys(input_field, new_username)
+
+        self.profile_page.send_keys(input_field, self.NEW_USERNAME)
 
         self.base_page.click(
             self.profile_page.locators.SAVE_BUTTON, 15)
@@ -26,7 +32,7 @@ class TestProfileContacts(BaseCase):
 
         updated_input_field = self.base_page.find(self.profile_page.locators.BUTTON_PROFILE_1, 15)
         
-        assert updated_input_field.text == new_username
+        assert updated_input_field.text == self.NEW_USERNAME
 
         self.profile_page.send_keys(input_field, old_username)
 
@@ -45,7 +51,7 @@ class TestProfileContacts(BaseCase):
         self.profile_page.open()
 
         password_input = self.reg_page.find(self.profile_page.locators.PASSWORD_INPUT, 10)
-        self.reg_page.send_keys(password_input, 'short')
+        self.reg_page.send_keys(password_input, self.SHORT_PASS)
         
         login_input = self.reg_page.find(self.profile_page.locators.LOGIN_INPUT, 10)
         self.reg_page.send_keys(login_input, '')
@@ -58,7 +64,7 @@ class TestProfileContacts(BaseCase):
         self.profile_page.open()
 
         password_input = self.reg_page.find(self.profile_page.locators.PASSWORD_INPUT, 10)
-        self.profile_page.send_keys(password_input, '12345678')
+        self.profile_page.send_keys(password_input, self.ONLY_NUMBERS_PASS)
         
         login_input = self.profile_page.find(self.profile_page.locators.LOGIN_INPUT, 10)
         self.profile_page.send_keys(login_input, '')
@@ -71,7 +77,7 @@ class TestProfileContacts(BaseCase):
         self.profile_page.open()
 
         password_input = self.profile_page.find(self.profile_page.locators.PASSWORD_INPUT, 10)
-        self.profile_page.send_keys(password_input, 'abcdefgh')
+        self.profile_page.send_keys(password_input, self.ONLY_LETTERS_PASS)
         
         login_input = self.profile_page.find(self.profile_page.locators.LOGIN_INPUT, 10)
         self.profile_page.send_keys(login_input, '')
@@ -84,10 +90,10 @@ class TestProfileContacts(BaseCase):
         self.profile_page.open()
 
         password_input = self.profile_page.find(self.profile_page.locators.PASSWORD_INPUT, 10)
-        self.profile_page.send_keys(password_input, 'abcdefgh123')
+        self.profile_page.send_keys(password_input, self.NORMAL_PASS)
 
         password_copy_input = self.profile_page.find(self.profile_page.locators.PASSWORD_COPY_INPUT, 10)
-        self.profile_page.send_keys(password_copy_input, 'empty_pass')
+        self.profile_page.send_keys(password_copy_input, self.EMPTY_PASS)
         self.profile_page.send_keys(password_copy_input, '')
         
         self.base_page.click(
@@ -101,13 +107,12 @@ class TestProfileContacts(BaseCase):
         self.profile_page.open()
 
         login, password = request.getfixturevalue('credentials')
-        new_password = 'newUserPassword123'
         
         password_input = self.profile_page.find(self.profile_page.locators.PASSWORD_INPUT, 10)
-        self.profile_page.send_keys(password_input, new_password)
+        self.profile_page.send_keys(password_input, self.NORMAL_PASS)
 
         password_copy_input = self.profile_page.find(self.profile_page.locators.PASSWORD_COPY_INPUT, 10)
-        self.profile_page.send_keys(password_copy_input, new_password)
+        self.profile_page.send_keys(password_copy_input, self.NORMAL_PASS)
         
         self.profile_page.click(
             self.profile_page.locators.SAVE_BUTTON, 15)
@@ -122,7 +127,7 @@ class TestProfileContacts(BaseCase):
         self.driver.refresh()
         self.profile_page.is_opened('https://movie-space.ru/login')
 
-        self.login_page.login(login, new_password)
+        self.login_page.login(login, self.NORMAL_PASS)
 
         self.profile_page.open()
 

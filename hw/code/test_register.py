@@ -12,14 +12,24 @@ class TestRegisterErrors(BaseCase):
     def test_opening_reg_page(self):
         self.reg_page.open()
 
+    WRONG_LOGIN_WITH_NUMBERS = '123'
+    EMPTY_PASS = 'empty_pass'
+    EMPTY_EMAIL = 'empty_email'
+    SHORT_PASS = 'short'
+    ONLY_NUMBERS_PASS = '12345678'
+    ONLY_LETTERS_PASS = 'abcdefgh'
+    REAL_USER_LOGIN = 'MarkTven'
+    TEST_USER_LOGIN = 'test@test.ru'
+    TEST_USER_PASS = 'passwordAZAZA123'
+
     def test_wrong_username(self):
         self.reg_page.open()
 
         login_input = self.reg_page.find(self.reg_page.locators.LOGIN_INPUT, 10)
-        self.reg_page.send_keys(login_input, '123')
+        self.reg_page.send_keys(login_input, self.WRONG_LOGIN_WITH_NUMBERS)
         
         password_input = self.reg_page.find(self.reg_page.locators.PASSWORD_INPUT, 10)
-        self.reg_page.send_keys(password_input, 'empty_pass')
+        self.reg_page.send_keys(password_input, self.EMPTY_PASS)
         
         notification = self.reg_page.wait_visability_of_elem(self.reg_page.locators.LOGIN_NOTIFICATION)
         
@@ -29,7 +39,7 @@ class TestRegisterErrors(BaseCase):
         self.reg_page.open()
 
         email_input = self.reg_page.find(self.reg_page.locators.EMAIL_INPUT, 10)
-        self.reg_page.send_keys(email_input, 'empty_email')
+        self.reg_page.send_keys(email_input, self.EMPTY_EMAIL)
         self.reg_page.send_keys(email_input, '')
 
         password_input = self.reg_page.find(self.reg_page.locators.PASSWORD_INPUT, 10)
@@ -43,7 +53,7 @@ class TestRegisterErrors(BaseCase):
         self.reg_page.open()
 
         email_input = self.reg_page.find(self.reg_page.locators.EMAIL_INPUT, 10)
-        self.reg_page.send_keys(email_input, 'empty_email')
+        self.reg_page.send_keys(email_input, self.EMPTY_EMAIL)
 
         password_input = self.reg_page.find(self.reg_page.locators.PASSWORD_INPUT, 10)
         self.reg_page.send_keys(password_input, '')
@@ -56,7 +66,7 @@ class TestRegisterErrors(BaseCase):
         self.reg_page.open()
 
         password_input = self.reg_page.find(self.reg_page.locators.PASSWORD_INPUT, 10)
-        self.reg_page.send_keys(password_input, 'empty_pass')
+        self.reg_page.send_keys(password_input, self.EMPTY_PASS)
         self.reg_page.send_keys(password_input, '')
         
         login_input = self.reg_page.find(self.reg_page.locators.LOGIN_INPUT, 10)
@@ -70,7 +80,7 @@ class TestRegisterErrors(BaseCase):
         self.reg_page.open()
 
         password_input = self.reg_page.find(self.reg_page.locators.PASSWORD_INPUT, 10)
-        self.reg_page.send_keys(password_input, 'short')
+        self.reg_page.send_keys(password_input, self.SHORT_PASS)
         
         login_input = self.reg_page.find(self.reg_page.locators.LOGIN_INPUT, 10)
         self.reg_page.send_keys(login_input, '')
@@ -83,7 +93,7 @@ class TestRegisterErrors(BaseCase):
         self.reg_page.open()
 
         password_input = self.reg_page.find(self.reg_page.locators.PASSWORD_INPUT, 10)
-        self.reg_page.send_keys(password_input, '12345678')
+        self.reg_page.send_keys(password_input, self.ONLY_NUMBERS_PASS)
         
         login_input = self.reg_page.find(self.reg_page.locators.LOGIN_INPUT, 10)
         self.reg_page.send_keys(login_input, '')
@@ -96,7 +106,7 @@ class TestRegisterErrors(BaseCase):
         self.reg_page.open()
 
         password_input = self.reg_page.find(self.reg_page.locators.PASSWORD_INPUT, 10)
-        self.reg_page.send_keys(password_input, 'abcdefgh')
+        self.reg_page.send_keys(password_input, self.ONLY_LETTERS_PASS)
         
         login_input = self.reg_page.find(self.reg_page.locators.LOGIN_INPUT, 10)
         self.reg_page.send_keys(login_input, '')
@@ -109,10 +119,10 @@ class TestRegisterErrors(BaseCase):
         self.reg_page.open()
 
         password_input = self.reg_page.find(self.reg_page.locators.PASSWORD_INPUT, 10)
-        self.reg_page.send_keys(password_input, 'empty_pass')
+        self.reg_page.send_keys(password_input, self.EMPTY_PASS)
 
         password_copy_input = self.reg_page.find(self.reg_page.locators.PASSWORD_COPY_INPUT, 10)
-        self.reg_page.send_keys(password_copy_input, 'empty_pass')
+        self.reg_page.send_keys(password_copy_input, self.EMPTY_PASS)
         self.reg_page.send_keys(password_copy_input, '')
         
         login_input = self.reg_page.find(self.reg_page.locators.LOGIN_INPUT, 10)
@@ -128,7 +138,7 @@ class TestRegisterErrors(BaseCase):
         email, password = request.getfixturevalue('credentials')
         
         login_input = self.reg_page.find(self.reg_page.locators.LOGIN_INPUT, 10)
-        self.reg_page.send_keys(login_input, 'MarkTven')
+        self.reg_page.send_keys(login_input, self.REAL_USER_LOGIN)
 
         email_input = self.reg_page.find(self.reg_page.locators.EMAIL_INPUT, 10)
         self.reg_page.send_keys(email_input, email)
@@ -154,19 +164,17 @@ class TestRegisterErrors(BaseCase):
         self.reg_page.send_keys(login_input, username)
 
         email_input = self.reg_page.find(self.reg_page.locators.EMAIL_INPUT, 10)
-        self.reg_page.send_keys(email_input, str(time.time()) + 'test@test.ru')
-
-        password = 'passwordAZAZA123'
+        self.reg_page.send_keys(email_input, str(time.time()) + self.TEST_USER_LOGIN)
 
         password_input = self.reg_page.find(self.reg_page.locators.PASSWORD_INPUT, 10)
-        self.reg_page.send_keys(password_input, password)
+        self.reg_page.send_keys(password_input, self.TEST_USER_PASS)
 
         password_copy_input = self.reg_page.find(self.reg_page.locators.PASSWORD_COPY_INPUT, 10)
-        self.reg_page.send_keys(password_copy_input, password)
+        self.reg_page.send_keys(password_copy_input, self.TEST_USER_PASS)
 
         self.reg_page.click((self.reg_page.locators.REGISTER_BUTTON), 10)
 
-        self.reg_page.is_opened('https://movie-space.ru/')
+        self.reg_page.is_opened(self.base_page.url)
 
         header_name = self.reg_page.find(self.base_page.locators.BUTTON_PROFILE_1, 10)
         assert str(header_name.text) == username
