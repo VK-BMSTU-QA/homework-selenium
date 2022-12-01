@@ -1,12 +1,13 @@
 import time
+from typing import List
 
 from .base import BasePage
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
-from hw.code.pages.locators.header import HeaderLocators
-from hw.code.pages.locators.header import MenuLocators
-from hw.code.pages.locators.draft import DraftLocators
-from hw.code.pages.locators.send import SendLocators
+from .locators.header import HeaderLocators
+from .locators.header import MenuLocators
+from .locators.draft import DraftLocators
+from .locators.send import SendLocators
 from selenium.webdriver import ActionChains
 from selenium.webdriver.remote.webelement import WebElement
 
@@ -81,7 +82,7 @@ class DraftPage(BasePage):
         time.sleep(1)
         self.go_to_site()
 
-    def list(self) -> list[WebElement]:
+    def list(self) -> List[WebElement]:
         items = self.find_elements(DraftLocators.DRAFTS, soft=True)
         return items
 

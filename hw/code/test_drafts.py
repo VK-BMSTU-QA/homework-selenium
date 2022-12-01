@@ -1,9 +1,12 @@
 import os
 
-from hw.code.pages.auth import AuthPage
-from hw.code.pages.drafts import DraftPage
-from hw.code.pages.drafts import Draft
+from pages.auth import AuthPage
+from pages.drafts import DraftPage
+from pages.drafts import Draft
 from dotenv import load_dotenv
+
+load_dotenv()  # LOGIN and PASSWORD
+
 
 SAMPLE_DRAFT = Draft('1 test address', '1 test theme', '1 test text')
 SAMPLE_DRAFT_LONGTHEME = Draft('1 test address', '1 test long long long long long long long long long theme',
@@ -47,19 +50,6 @@ def test_create_draft_error_longaddress(browser):
     draft_count = draft_page.list_count()
     draft_page.create_draft(SAMPLE_DRAFT_LONGADDRESS)
     assert draft_count == draft_page.list_count()
-
-
-# TODO: Realize
-# def test_create_draft_error_saveattach(browser):
-#     auth_page = AuthPage(browser)
-#     auth_page.go_to_site()
-#     auth_page.login(os.getenv('LOGIN'), os.getenv('PASSWORD'))
-#
-#     draft_page = DraftPage(browser)
-#     draft_page.go_to_site()
-#     draft_count = draft_page.list_count()
-#     draft_page.create_draft(SAMPLE_DRAFT_LONGADDRESS, attach=r'/mnt/d/techpark/homework-selenium/requirements.txt')
-#     assert draft_count == draft_page.list_count()
 
 
 def test_create_draft_cancel(browser):
