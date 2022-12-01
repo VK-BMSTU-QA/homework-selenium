@@ -9,7 +9,8 @@ class HeaderComponent(BaseComponent):
 
     def activate_search_value(self):
         self.click(self.locators.SEARCH_BUTTON)
-        return self.get_elem_value(self.locators.SEARCH_INPUT)
+        elem = self.wait_visability_of_elem(self.locators.SEARCH_INPUT)
+        return elem, self.get_value(elem)
 
     def activate_search(self):
         self.click(self.locators.SEARCH_BUTTON)
@@ -25,7 +26,8 @@ class HeaderComponent(BaseComponent):
         return self.find(self.locators.ADDRESS_INPUT)
 
     def close_address(self):
-        self.click_after(self.locators.LAST_SUGGEST, 1)
+        PIXEL_OFFSET_AFTER_ADDRESS = 1
+        self.click_after(self.locators.LAST_SUGGEST, PIXEL_OFFSET_AFTER_ADDRESS)
         self.wait_invisability_of_elem(self.locators.SUGGESTS)
 
     def open_cart(self):

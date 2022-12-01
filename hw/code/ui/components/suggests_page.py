@@ -7,7 +7,7 @@ import time
 class SuggestPage(BaseComponent):
     locators = locators.SuggestPageLocators()
     PATH = paths.SUGGESTS
-    debounce_timeout = 1
+    DEBOUNCE_TIMEOUT = 1
 
     def activate_address_input(self):
         search_input = self.click(self.locators.ADDRESS_INPUT)
@@ -15,33 +15,33 @@ class SuggestPage(BaseComponent):
         return search_input
 
     def close_address_input(self):
-        self.click_after(self.locators.LAST_SUGGEST, 1)
+        PIXEL_OFFSET_AFTER_ADDRESS = 1
+        with self.wait_for_reload_elem(self.locators.ADDRESS_INPUT):
+            self.click_after(self.locators.LAST_SUGGEST, PIXEL_OFFSET_AFTER_ADDRESS)
         self.wait_invisability_of_elem(self.locators.SUGGESTS)
 
     def get_address_value(self):
-        return self.get_elem_value(self.locators.ADDRESS_INPUT)
-
-    def is_address_value(self, value):
-        return self.get_elem_value(self.locators.ADDRESS_INPUT) == value
+        address_input_elem = self.find(self.locators.ADDRESS_INPUT)
+        return address_input_elem, self.get_value(address_input_elem)
 
     def get_address_input(self):
         return self.find(self.locators.ADDRESS_INPUT)
 
     def get_suggests(self, query):
+        time.sleep(self.DEBOUNCE_TIMEOUT)
         with self.wait_for_reload_elem(self.locators.SUGGESTS):
             self.send_keys_no_clear(self.locators.ADDRESS_INPUT, query)
 
-    def is_first_suggest(self, value):
-        return self.has_text(self.find(self.locators.SUGGESTS), value)
+    def get_text_first_suggest(self, value):
+        return self.get_text(self.find(self.locators.SUGGESTS))
 
     def choose_first_suggest(self):
-        with self.wait_for_reload_elem(self.locators.SUGGESTS):
+        with self.wait_for_reload_elems(self.default_timeout, self.locators.SUGGESTS, self.locators.ADDRESS_INPUT):
             self.click(self.locators.SUGGESTS)
 
     def get_suggests_full_address(self, address):
         self.get_suggests(address[:-1])
-        time.sleep(2)
         self.get_suggests(address[-1])
 
-    def get_elem_text_first_suggest(self):
-        return self.get_elem_text(self.locators.SUGGESTS)[1]
+    def get_text_first_suggest(self):
+        return self.get_text(self.locators.SUGGESTS)

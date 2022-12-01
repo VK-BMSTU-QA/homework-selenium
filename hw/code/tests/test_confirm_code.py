@@ -37,4 +37,4 @@ class TestConfirmCode(BaseCase):
 
     def test_close_modal_window(self, send_default_phone):
         self.page.click(self.page.locators.CLOSE_BUTTON)
-        assert self.page.is_url(paths.MAIN)
+        assert self.page.is_url_matches(paths.MAIN)

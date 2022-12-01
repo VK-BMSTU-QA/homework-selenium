@@ -6,7 +6,10 @@ source venv/bin/activate
 
 2. Устанавливаем зависимости.
 ```
-pip install requirements.txt
+pip install -r requirements.txt
+```
+```
+brew install python-tk@3.9 python3-dev
 ```
 
 3. Устанавливаем пакеты.

@@ -80,7 +80,7 @@ class BaseComponent(object):
             return False
         return True
 
-    def is_url(self, path):
+    def is_url_matches(self, path):
         return EC.url_matches(urlparse.urljoin(self.BASE_URL, path))
 
     def is_active(self, elem):
@@ -89,48 +89,16 @@ class BaseComponent(object):
     def is_not_active(self, elem):
         return self.driver.switch_to.active_element != elem
 
-    def has_value(self, elem, value):
-        return elem.get_attribute("value") == value
-
-    def has_text(self, elem, value):
-        return elem.text == value
-
-    def get_elem_text(self, locator, timeout=default_timeout):
-        started = time.time()
-        while time.time() - started < timeout:
-            try:
-                elem = self.find(locator, timeout - (time.time() - started))
-                return elem, elem.text
-            except StaleElementReferenceException as Exception:
-                pass
-        raise StaleTimeoutExeption(f"{locator} did not clickable or have been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
+    def get_text(self, locator):
+        return self.find(locator, 0).text
 
     def get_value(self, elem):
         return elem.get_attribute("value")
 
-    def get_elem_value(self, locator, timeout=default_timeout):
-        started = time.time()
-        while time.time() - started < timeout:
-            try:
-                elem = self.find(locator, timeout - (time.time() - started))
-                return elem, elem.get_attribute("value")
-            except StaleElementReferenceException as Exception:
-                pass
-        raise StaleTimeoutExeption(f"{locator} did not clickable or have been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
-
-    def find_all_elems(self, locator, timeout=default_timeout):
-        return self.wait(timeout).until(EC.presence_of_all_elements_located(locator))
-
     def send_keys_no_clear(self, locator, keys, timeout=default_timeout) -> WebElement:
-        started = time.time()
-        while time.time() - started < timeout:
-            try:
-                elem = self.wait_to_be_clickable(locator, timeout - (time.time() - started))
-                elem.send_keys(keys)
-                return elem
-            except StaleElementReferenceException as Exception:
-                pass
-        raise StaleTimeoutExeption(f"{locator} did not clickable or have been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
+        elem = self.wait_to_be_clickable(locator, timeout)
+        elem.send_keys(keys)
+        return elem
 
     def send_keys(self, locator, keys, timeout=default_timeout) -> WebElement:
         started = time.time()
@@ -145,17 +113,11 @@ class BaseComponent(object):
         raise StaleTimeoutExeption(f"{locator} did not clickable or have been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
 
     def send_keys_enter(self, locator, keys, timeout=default_timeout) -> WebElement:
-        started = time.time()
-        while time.time() - started < timeout:
-            try:
-                elem = self.wait_to_be_clickable(locator, timeout - (time.time() - started))
-                elem.clear()
-                elem.send_keys(keys)
-                elem.send_keys(Keys.RETURN)
-                return elem
-            except StaleElementReferenceException as Exception:
-                pass
-        raise StaleTimeoutExeption(f"{locator} did not clickable or have been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
+        elem = self.wait_to_be_clickable(locator, timeout)
+        elem.clear()
+        elem.send_keys(keys)
+        elem.send_keys(Keys.RETURN)
+        return elem
 
     def click(self, locator, timeout=default_timeout) -> WebElement:
         started = time.time()
@@ -168,32 +130,23 @@ class BaseComponent(object):
                 pass
         raise StaleTimeoutExeption(f"{locator} did not clickable or have been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
 
-    def click_number(self, locator, number, timeout=default_timeout) -> WebElement:
-        started = time.time()
-        while time.time() - started < timeout:
-            try:
-                elem = self.find_all_elems(locator)[number - 1]
-                elem = self.wait_to_be_clickable(elem, timeout - (time.time() - started))
-                elem.click()
-                return elem
-            except StaleElementReferenceException as Exception:
-                pass
-        raise StaleTimeoutExeption(f"{locator} did not clickable or have been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
-
     @contextmanager
     def wait_for_reload_elem(self, locator, timeout=default_timeout):
         old_elem = self.find(locator)
         yield
         WebDriverWait(self.driver, timeout).until(EC.staleness_of(old_elem))
 
+    @contextmanager
+    def wait_for_reload_elems(self, timeout, *locators):
+        old_elems = []
+        for locator in locators:
+            old_elems.append(self.find(locator))
+        yield
+        for idx, locator in enumerate(locators):
+            WebDriverWait(self.driver, timeout).until(EC.staleness_of(old_elems[idx]))
+
     def click_after(self, locator, dy, timeout=default_timeout):
-        started = time.time()
-        while time.time() - started < timeout:
-            try:
-                elem = self.wait_to_be_clickable(locator, timeout - (time.time() - started))
-                elem.click()
-                self.action.move_to_element_with_offset(elem, 0, elem.size["height"] + dy).click().perform()
-                return elem
-            except StaleElementReferenceException as Exception:
-                pass
-        raise StaleTimeoutExeption(f"{locator} did not clickable or have been throwing StaleElementReferenceExceptions in {timeout} sec, current url {self.driver.current_url}")
+        elem = self.wait_to_be_clickable(locator, timeout)
+        elem.click()
+        self.action.move_to_element_with_offset(elem, 0, elem.size["height"] + dy).click().perform()
+        return elem

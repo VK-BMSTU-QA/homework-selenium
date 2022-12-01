@@ -18,7 +18,6 @@ CODE = os.getenv("CODE")
 def get_driver(browser_name):
     if browser_name == "chrome":
         chrome_options = Options()
-        # chrome_options.add_argument("--headless")
         chrome_options.add_argument("--no-proxy-server")
         chrome_options.add_argument("--disable-extensions")
         chrome_options.add_argument("--disable-gpu")
