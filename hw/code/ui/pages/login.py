@@ -13,4 +13,4 @@ class LoginPage(BasePage):
         password_input = self.find(self.locators.PASSWORD_INPUT, 10)
         self.send_keys(password_input, password)
         self.click((self.locators.PASS_LOGIN_CREDS_BUTTON), 10)
-        self.is_opened("https://movie-space.ru/")
+        self.wait_visability_of_elem(self.locators.BUTTON_PROFILE_1, 10)

@@ -17,16 +17,6 @@ class BasePage(object):
     locators = basic_locators.BasePageLocators()
     url = "https://movie-space.ru/"
 
-    def is_opened(self, url, timeout=15):
-        started = time.time()
-        while time.time() - started < timeout:
-            if self.driver.current_url == url:
-                return True
-        raise PageNotOpenedExeption(
-            f"{url} did not open in {timeout} sec,"
-            + " current url {self.driver.current_url}"
-        )
-
     def __init__(self, driver):
         self.driver = driver
 

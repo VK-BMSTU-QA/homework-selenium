@@ -49,8 +49,6 @@ class TestRegisterErrors(BaseCase):
 
         self.reg_page.click((self.reg_page.locators.REGISTER_BUTTON), 10)
 
-        self.reg_page.is_opened(self.base_page.url)
-
         header_name = self.reg_page.find(
             self.base_page.locators.BUTTON_PROFILE_1, 10
         )

@@ -8,7 +8,6 @@ from ui.pages.login import LoginPage
 
 
 class TestLogin:
-
     def test_login(self, driver, config, request: FixtureRequest):
         self.driver = driver
         self.config = config

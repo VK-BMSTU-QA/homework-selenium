@@ -45,7 +45,6 @@ class TestProfileContacts(BaseCase):
         self.profile_page.click(self.profile_page.locators.BUTTON_LOGOUT, 10)
 
         self.driver.refresh()
-        self.profile_page.is_opened("https://movie-space.ru/login")
 
         self.login_page.login(login, self.NORMAL_PASS)
 
@@ -74,8 +73,6 @@ class TestProfileContacts(BaseCase):
         )
         self.profile_page.click(self.profile_page.locators.BUTTON_LOGOUT, 10)
         self.driver.refresh()
-        self.profile_page.is_opened("https://movie-space.ru/login")
-
         self.login_page.login(login, password)
 
     def test_change_username(self):

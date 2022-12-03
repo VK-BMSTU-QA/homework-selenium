@@ -11,5 +11,6 @@ class RegPage(BasePage):
 
     def open(self):
         self.click(basic_locators.LoginPageLocators.REGISTER_BUTTON, 10)
-        self.is_opened(self.url, 10)
-        time.sleep(1)
+        self.wait_visability_of_elem(
+            basic_locators.RegisterPageLocators.PASSWORD_COPY_INPUT, 10
+        )

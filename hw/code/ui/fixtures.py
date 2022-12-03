@@ -67,7 +67,6 @@ def cookies(credentials, config):
     driver.get(config["url"])
     login_page = LoginPage(driver)
     login_page.login(*credentials)
-    time.sleep(5)
     cookies = driver.get_cookies()
     print(cookies)
     driver.quit()
