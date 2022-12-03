@@ -15,7 +15,7 @@ class PageNotOpenedExeption(Exception):
 class BasePage(object):
 
     locators = basic_locators.BasePageLocators()
-    url = 'https://movie-space.ru/'
+    url = "https://movie-space.ru/"
 
     def is_opened(self, url, timeout=15):
         started = time.time()
@@ -23,7 +23,9 @@ class BasePage(object):
             if self.driver.current_url == url:
                 return True
         raise PageNotOpenedExeption(
-            f'{url} did not open in {timeout} sec, current url {self.driver.current_url}')
+            f"{url} did not open in {timeout} sec,"
+            + " current url {self.driver.current_url}"
+        )
 
     def __init__(self, driver):
         self.driver = driver
@@ -34,13 +36,19 @@ class BasePage(object):
         return WebDriverWait(self.driver, timeout=timeout)
 
     def find(self, locator, timeout=None):
-        return self.wait(timeout).until(EC.presence_of_element_located(locator))
+        return self.wait(timeout).until(
+            EC.presence_of_element_located(locator)
+        )
 
     def wait_visability_of_elem(self, locator, timeout=None):
-        return self.wait(timeout).until(EC.visibility_of_element_located(locator))
+        return self.wait(timeout).until(
+            EC.visibility_of_element_located(locator)
+        )
 
     def find_all_elemets(self, locator, timeout=None):
-        return self.wait(timeout).until(EC.presence_of_all_elements_located(locator))
+        return self.wait(timeout).until(
+            EC.presence_of_all_elements_located(locator)
+        )
 
     def send_keys(self, element, keys):
         element.clear()
@@ -48,9 +56,7 @@ class BasePage(object):
 
     def move_on_element(self, locator, timeout=None) -> WebElement:
         hoverable = self.find(locator)
-        ActionChains(self.driver)\
-            .move_to_element(hoverable)\
-            .perform()
+        ActionChains(self.driver).move_to_element(hoverable).perform()
 
     def click(self, locator, timeout=None) -> WebElement:
         self.find(locator, timeout=timeout)

@@ -7,11 +7,16 @@ from webdriver_manager.firefox import GeckoDriverManager
 from ui.pages.login import LoginPage
 from ui.pages.base_page import BasePage
 
+
 def get_driver(browser_name):
-    if browser_name == 'chrome':
-        browser = webdriver.Chrome(executable_path=ChromeDriverManager().install())
-    elif browser_name == 'firefox':
-        browser = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+    if browser_name == "chrome":
+        browser = webdriver.Chrome(
+            executable_path=ChromeDriverManager().install()
+        )
+    elif browser_name == "firefox":
+        browser = webdriver.Firefox(
+            executable_path=GeckoDriverManager().install()
+        )
     else:
         raise RuntimeError(f'Unsupported browser: "{browser_name}"')
     browser.maximize_window()
@@ -20,15 +25,17 @@ def get_driver(browser_name):
 
 @pytest.fixture()
 def driver(config):
-    browser = config['browser']
-    url = config['url']
+    browser = config["browser"]
+    url = config["url"]
 
-    if browser == 'chrome':
+    if browser == "chrome":
         driver = webdriver.Chrome(
-            executable_path=ChromeDriverManager().install(), options=Options())
-    elif browser == 'firefox':
+            executable_path=ChromeDriverManager().install(), options=Options()
+        )
+    elif browser == "firefox":
         driver = webdriver.Firefox(
-            executable_path=GeckoDriverManager().install())
+            executable_path=GeckoDriverManager().install()
+        )
     else:
         raise RuntimeError(f'Unsupported browser: "{browser}"')
 
@@ -44,19 +51,20 @@ def driver(config):
 def base_page(driver):
     return BasePage(driver=driver)
 
-@pytest.fixture(scope='session')
+
+@pytest.fixture(scope="session")
 def credentials():
-    with open('/home/ilyas/technopark/3semestr/QA/creds', 'r') as f:
+    with open("/home/ilyas/technopark/3semestr/QA/creds", "r") as f:
         login = f.readline().strip()
         password = f.readline().strip()
 
     return login, password
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def cookies(credentials, config):
-    driver = get_driver(config['browser'])
-    driver.get(config['url'])
+    driver = get_driver(config["browser"])
+    driver.get(config["url"])
     login_page = LoginPage(driver)
     login_page.login(*credentials)
     time.sleep(5)
