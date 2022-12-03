@@ -5,9 +5,9 @@ class BasePageLocators:
     BUTTON_PROFILE_1 = (By.CLASS_NAME, "name-profile")
 
 class LoginPageLocators(BasePageLocators):
-    LOGIN_INPUT = (By.CLASS_NAME, '//*[@id="menu"]/form/div[1]/div[1]/input')
+    LOGIN_INPUT = (By.XPATH, '//*[@id="menu"]/form/div[1]/div[1]/input')
     PASSWORD_INPUT = (By.XPATH, '//*[@id="menu"]/form/div[2]/div[1]/input')
-    PASS_LOGIN_CREDS_BUTTON = (By.CLASS_NAME, '//*[@id="menu"]/form/button')
+    PASS_LOGIN_CREDS_BUTTON = (By.CLASS_NAME, 'menu-button')
     LOGIN_NOTIFICATION = (By.XPATH, '//*[@id="menu"]/form/div[1]/div[2]')
     PASSWORD_NOTIFICATION = (By.XPATH, '//*[@id="menu"]/form/div[2]/div[2]')
     USER_DOES_NOT_EXISTS_NOTIFICATION = (By.XPATH, '//*[@id="menu"]/form/div[3]')
