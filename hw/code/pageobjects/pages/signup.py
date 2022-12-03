@@ -1,6 +1,9 @@
 from selenium.webdriver.common.by import By
 
 from pageobjects.base.page import Page
+from utils.constants import default_password
+from pageobjects.components.header import Header
+import time
 
 
 class SignUpPage(Page):
@@ -41,3 +44,8 @@ class SignUpPage(Page):
         self.fill_password1(password1)
         self.fill_password2(password2)
         self.btn_enter.click()
+
+    def signup_new_user(self):
+        self.signup(time.time(), default_password, default_password)
+        Header.create(self.driver)
+
