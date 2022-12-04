@@ -59,6 +59,6 @@ class BasePage:
         elem.click()
 
     def get_css_property(self, locator, name) -> str:
-        elem = self.find_element(locator)
+        elem = self.find_element(locator, time=10)
         assert elem
         return elem.value_of_css_property(name)

@@ -37,11 +37,16 @@ class DraftPage(BasePage):
 
     def delete_all(self) -> int:
         action_chains = ActionChains(self.driver)
-        while self.list_count() > 0:
+        limit = self.list_count() * 2
+        for i in range(0, limit):
             item = self.find_element(DraftLocators.DRAFTS, soft=True)
             action_chains.context_click(item).perform()
             delete_button = self.find_element(DraftLocators.DELETE_BUTTON)
             delete_button.click()
+            self.driver.refresh()
+            if self.list_count() == 0:
+                break
+        assert self.list_count() == 0
 
     def fill_draft_form(self, draft):
         address_input = self.find_element(SendLocators.ADDRESS_INPUT)
@@ -56,7 +61,7 @@ class DraftPage(BasePage):
         text_input.clear()
         text_input.send_keys(draft.text)
 
-    def create_draft(self, draft, cancel=False, attach=''):
+    def create_draft(self, draft, cancel=False):
         income_button = self.find_element(MenuLocators.INCOME_BUTTON)
         income_button.click()
         send_button = self.find_element(MenuLocators.SEND_BUTTON)

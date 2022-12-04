@@ -75,6 +75,7 @@ def test_show_draft_list(browser):
     draft_page.create_draft(SAMPLE_DRAFT)
     draft_page.create_draft(SAMPLE_DRAFT)
     draft_page.create_draft(SAMPLE_DRAFT)
+    draft_page.go_to_site()
     assert draft_count + 3 == draft_page.list_count()
 
 
