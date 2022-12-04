@@ -23,12 +23,15 @@ class DeskTest(BaseTestCase):
         self.open_desk()
         self.page.create_list(title)
         self.page.check_new_list(title)
+
+    def create_card(self, title):
+        self.create_list(title)
+        self.page.create_card(title)
+        self.page.check_new_card(title)
     
     def test_create_column(self):
-        self.open_desk()
         title = "test_title"
-        self.page.create_list(title)
-        self.page.check_new_list(title)
+        self.create_list(title)
     
     def test_close_popup_icon(self):
         self.open_desk()
@@ -45,9 +48,22 @@ class DeskTest(BaseTestCase):
         self.assertEqual(self.page.popup_new_list_check_active, False)
     
     def test_create_card(self):
+        title = "test_title"
+        self.create_card(title)
+    
+    def test_close_popup_icon_card(self):
         self.create_list("title")
         self.page.btn_new_card.click()
         ModalList.create(self.driver)
-        
+        self.page.popup_new_list_close_btn.click()
+        self.assertEqual(self.page.popup_new_list_check_active, False)
+
+    def test_close_popup_btn_card(self):
+        self.create_list("title")
+        self.page.btn_new_card.click()
+        ModalList.create(self.driver)
+        self.page.popup_new_list_close_icon.click()
+        self.assertEqual(self.page.popup_new_list_check_active, False)
+
 
         

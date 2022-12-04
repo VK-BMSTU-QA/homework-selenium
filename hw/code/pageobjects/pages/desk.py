@@ -13,7 +13,7 @@ class DeskPage(Page):
         return self.driver.find_element(by=By.CLASS_NAME, value="createModal__settings_input")
 
     @property
-    def create_list_btn(self):
+    def create_btn(self):
         return self.driver.find_element(by=By.CLASS_NAME, value="createModal__settings_save")
 
     @property
@@ -40,20 +40,29 @@ class DeskPage(Page):
     @property
     def btn_new_card(self):
         return self.driver.find_element(by=By.CLASS_NAME, value="desk__newButton")
+    
+    @property
+    def card_title(self):
+        return self.driver.find_element(by=By.CLASS_NAME, value="desk__task-text")
 
     def create_list(self, title):
         self.btn_new_list.click()
         ModalList.create(self.driver)
         self.title_input.send_keys(title)
-        self.create_list_btn.click()
+        self.create_btn.click()
 
     def create_card(self, title):
-        self.btn_new_list.click()
+        self.btn_new_card.click()
         ModalList.create(self.driver)
         self.title_input.send_keys(title)
-        self.create_list_btn.click()
+        self.create_btn.click()
     
     def check_new_list(self, title):
         if self.list_title.text == title:
+            return True
+        return False
+    
+    def check_new_card(self, title):
+        if self.card_title.text == title:
             return True
         return False

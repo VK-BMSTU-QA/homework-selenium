@@ -8,3 +8,4 @@ class ModalDesk(component.Component):
         modal = ModalDesk(driver, "body > div.createDesk__bg.active > div")
         modal.locate()
         return modal
+    
