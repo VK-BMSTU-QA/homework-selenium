@@ -4,6 +4,7 @@ from pageobjects.components.header import Header
 from pageobjects.components.desk import Desk
 from pageobjects.components.card import Card
 from tests.base_test_case import BaseTestCase
+from selenium.webdriver.common.keys import Keys
 from utils.constants import authorization_data,urls,cookie_name,create_desc_errors
 import time
 
@@ -37,7 +38,6 @@ class DeskTest(BaseTestCase):
 
     def reload_card(self):
         self.page.task_close.click()
-        self.driver.refresh()
         self.page.open_new_card()
         Card.create(self.driver)
 
@@ -77,17 +77,29 @@ class DeskTest(BaseTestCase):
     #     self.page.popup_new_list_close_icon.click()
     #     self.assertEqual(self.page.popup_new_list_check_active, False)
 
-    def test_save_card_title(self):
-        title = "Тест названия карточки"
-        self.open_card()
-        self.page.task_title.send_keys(title)
-        Card.create(self.driver)
-        self.page.click_header()
-        title = "test" + title
-        self.page.wait_texarea_value(title)
+    # def test_save_card_title(self):
+    #     title = "Тест названия карточки"
+    #     self.open_card()
+    #     try:
+    #         self.page.task_title().click()
+    #         self.page.task_title().send_keys(title)
+    #     except:
+    #         self.page.task_title().click()
+    #         self.page.task_title().send_keys(title)
+    #     self.page.wait_texarea_value()
+    #     self.page.click_header()
+    #     self.page.wait_texarea_value()
         
-        self.reload_card()
-        self.assertEqual(self.page.task_title.text, title)
+    #     self.reload_card()
+
+    #     self.page.wait_texarea_value()
+    #     self.assertEqual(self.page.task_title().text, "test" + title)
+
+    def test_add_user(self):
+        self.open_card()
+
+        self.page.btn_add_user().
+
 
 
 

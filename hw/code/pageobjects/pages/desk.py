@@ -51,16 +51,18 @@ class DeskPage(Page):
     def card_title(self):
         return self.driver.find_element(by=By.CLASS_NAME, value="desk__task-text")
 
-    @property
     def task_title(self):
-        return self.driver.find_element(by=By.CLASS_NAME, value="taskBlock__title-input")
+        return WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable((By.CLASS_NAME, "taskBlock__title-input")))
+
+    def btn_add_user(self):
+        return WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable((By.CLASS_NAME, "taskBlock__add-user")))
 
     @property
     def task_close(self):
         return self.driver.find_element(by=By.CLASS_NAME, value="taskBlock__close")
 
-    def wait_texarea_value(self, text):
-        WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, f""".taskBlock__title-input[data-info="{text}"]""")))
+    def wait_texarea_value(self):
+        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'taskBlock__title-input')))
 
     def create_list(self, title):
         self.btn_new_list.click()
