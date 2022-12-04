@@ -1,5 +1,3 @@
-
-import time
 import pytest
 from hw.code.ui.pages.base_page import BasePage
 from hw.code.ui.base_case import BaseCase
@@ -11,17 +9,13 @@ class TestSearchClick(BaseCase):
     button_search_close = BasePage.locators.BUTTON_CLOSE_SEARCH
     search = BasePage.locators.INPUT_SEARCH
 
-    
-
     def test_search_open_clicking(self):
-        time.sleep(2)
         self.base_page.click(self.button_search, 20)
         search = (self.base_page.driver.find_elements_by_xpath(self.search[1])[0])
         assert search.get_attribute('hidden') is None
         self.base_page.click(self.button_search_close, 20)
 
     def test_search_close_clicking(self):
-        time.sleep(2)
         self.base_page.click(self.button_search, 20)
         self.base_page.click(self.button_search_close, 20)
         search = (self.base_page.driver.find_elements_by_xpath(self.search[1])[0])
@@ -49,10 +43,7 @@ class TestSearchData(BaseCase):
         ),
 
     ])
-    
-
     def test_search_categories(self, content, expected):
-        time.sleep(2)
         self.base_page.click(self.button_search, 20)
         search = (self.base_page.driver.find_elements_by_xpath(self.search[1])[0])
         search.send_keys(content)
@@ -73,10 +64,7 @@ class TestSearchEmptyData(BaseCase):
     content = 'фильм/сериал/персона которого нет в базе'
     expected = 'Ничего не найдено'
 
-    
-
     def test_search_empty(self):
-        time.sleep(2)
         self.base_page.click(self.button_search, 20)
         search = (self.base_page.driver.find_elements_by_xpath(self.search[1])[0])
         search.send_keys(self.content)
@@ -85,36 +73,18 @@ class TestSearchEmptyData(BaseCase):
         self.base_page.click(self.button_search_close, 20)
 
 
-class TestSearchDataSwitch(BaseCase):
+class TestSearchPartData(BaseCase):
     authorize = True
     button_search = BasePage.locators.BUTTON_SEARCH
     button_search_close = BasePage.locators.BUTTON_CLOSE_SEARCH
     search = BasePage.locators.INPUT_SEARCH
-    topic = BasePage.locators.TOPIC
+    content = 'ав'
+    expected = ['Аватар', 'Гравити Фолз', 'Джон Фавро', 'Сиэра Браво']
 
-    @pytest.mark.parametrize("content, expected", [
-        (
-                'Аватар',
-                'https://movie-space.ru/movie/1'
-        ),
-        (
-                'Шерлок',
-                'https://movie-space.ru/movie/29'
-        ),
-        (
-                'Хью Лори',
-                'https://movie-space.ru/person/21'
-        ),
-
-    ])
-    
-
-    def test_search_switch(self, content, expected):
-        time.sleep(2)
+    def test_search_categories(self):
         self.base_page.click(self.button_search, 20)
         search = (self.base_page.driver.find_elements_by_xpath(self.search[1])[0])
-        search.send_keys(content)
-        self.base_page.wait_visability_of_elem(self.base_page.locators.TOPIC)
-        self.base_page.click(self.topic, 10)
-        assert str(self.driver.current_url) == expected
-        time.sleep(1)
+        search.send_keys(self.content)
+        res_topic = self.base_page.find_all_elemets(self.base_page.locators.RES_TOPICS)
+        for i in range(1, len(self.expected)):
+            assert res_topic[i].text == self.expected[i]

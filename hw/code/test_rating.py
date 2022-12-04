@@ -1,18 +1,13 @@
-import os.path
-import time
-
 import pytest
 from selenium.webdriver import ActionChains
-
-from hw.code.ui.pages.base_page import BasePage
 from hw.code.ui.base_case import BaseCase
-from hw.code.ui.pages.series_page import SeriesPage
+from hw.code.ui.pages.movie_page import MoviePage
 
 
 class TestRating(BaseCase):
     authorize = True
-    rating = SeriesPage.locators.RATING
-    slider = SeriesPage.locators.SLIDER
+    rating = MoviePage.locators.RATING
+    slider = MoviePage.locators.SLIDER
 
     @pytest.mark.parametrize("offset, range, expected_color", [
         (
@@ -34,35 +29,25 @@ class TestRating(BaseCase):
         ),
 
     ])
-    
-
-    def test_rating_value(self,offset,range,expected_color):
-        time.sleep(2)
-        self.series_page.open()
-        time.sleep(2)
+    def test_rating_value(self, offset, range, expected_color):
         self.serial_page.open()
-        time.sleep(2)
         rating = self.base_page.wait_visability_of_elem(self.rating)
         slider = self.base_page.wait_visability_of_elem(self.slider)
         ActionChains(self.driver).click_and_hold(slider).move_by_offset(offset, 0).release().perform()
         assert range[0] < int(rating.text) < range[1]
         assert rating.value_of_css_property('color') == expected_color
 
+
 class TestSearchEmptyData(BaseCase):
     authorize = True
-    rating = SeriesPage.locators.RATING
-    slider = SeriesPage.locators.SLIDER
+    rating = MoviePage.locators.RATING
+    slider = MoviePage.locators.SLIDER
     expected_value = '–'
     expected_color = 'rgba(255, 255, 255, 1)'
     offset = -150
-    
 
-    def test_search_empty(self):
-        time.sleep(2)
-        self.series_page.open()
-        time.sleep(2)
+    def test_rating_empty(self):
         self.serial_page.open()
-        time.sleep(2)
         rating = self.base_page.wait_visability_of_elem(self.rating)
         slider = self.base_page.wait_visability_of_elem(self.slider)
         ActionChains(self.driver).click_and_hold(slider).move_by_offset(self.offset, 0).release().perform()
