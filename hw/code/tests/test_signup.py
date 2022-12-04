@@ -1,14 +1,8 @@
 from pageobjects.pages.signup import SignUpPage
 from pageobjects.components.header import Header
 from tests.base_test_case import BaseTestCase
-from utils.constants import authorization_data, urls, cookie_name
+from utils.constants import authorization_data, urls, cookie_name, signup_errors
 import time
-
-errors = {
-    "empty_enter": "Логин и пароль должны составлять от 7 до 20 символов",
-    "already_exist": "Пользователь с таким именем уже зарегистрирован",
-    "repeat_pass": "Введенные пароли не совпадают",
-}
 
 class SignUpTest(BaseTestCase): # Иванов Виктор Михайлович
     def setUp(self):
@@ -32,19 +26,19 @@ class SignUpTest(BaseTestCase): # Иванов Виктор Михайлович
     #     self.page.open()
     #     self.page.btn_enter.click()
     
-    #     self.assertEqual(errors["empty_enter"], self.page.get_error())
+    #     self.assertEqual(signup_errors["empty_enter"], self.page.get_error())
 
     # def test_signup_already_exist(self): # Иванов Виктор Михайлович
     #     self.page.open()
     #     self.page.signup(authorization_data["login"], authorization_data["password"], authorization_data["password"])
 
-    #     self.assertEqual(errors["already_exist"], self.page.get_error())
+    #     self.assertEqual(signup_errors["already_exist"], self.page.get_error())
 
     # def test_signup_repeat_pass(self): # Иванов Виктор Михайлович
     #     self.page.open()
     #     self.page.signup(time.time(), authorization_data["password"], authorization_data["password"] + "1")
 
-    #     self.assertEqual(errors["repeat_pass"], self.page.get_error())
+    #     self.assertEqual(signup_errors["repeat_pass"], self.page.get_error())
 
     # def tearDown(self):
     #     super().tearDown()

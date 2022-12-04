@@ -46,6 +46,8 @@ class SignUpPage(Page):
         self.btn_enter.click()
 
     def signup_new_user(self):
-        self.signup(time.time(), default_password, default_password)
+        login = time.time()
+        print('current login:', login)
+        self.signup(login, default_password, default_password)
         Header.create(self.driver)
 

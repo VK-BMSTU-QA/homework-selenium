@@ -3,6 +3,7 @@ import unittest
 import subprocess
 import os
 from pageobjects.pages.signup import SignUpPage
+from pageobjects.pages.base import BasePage
 from selenium import webdriver
 
 
@@ -17,6 +18,7 @@ class BaseTestCase(unittest.TestCase):
         self.driver.implicitly_wait(10)
         self.driver.set_page_load_timeout(60)
         self.signUpPage = SignUpPage(self.driver)
+        self.basePage = BasePage(self.driver)
 
     def tearDown(self):
         self.driver.close()
