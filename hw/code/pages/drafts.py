@@ -42,7 +42,6 @@ class DraftPage(BasePage):
             action_chains.context_click(item).perform()
             delete_button = self.find_element(DraftLocators.DELETE_BUTTON)
             delete_button.click()
-            time.sleep(0.5)
 
     def fill_draft_form(self, draft):
         address_input = self.find_element(SendLocators.ADDRESS_INPUT)
@@ -74,7 +73,6 @@ class DraftPage(BasePage):
         else:
             draft_save_button = self.find_element(SendLocators.POPUP_DRAFT_SAVE_BUTTON)
             draft_save_button.click()
-        time.sleep(1)
         self.go_to_site()
 
     def list(self) -> List[WebElement]:
