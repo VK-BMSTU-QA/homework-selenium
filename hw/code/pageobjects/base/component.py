@@ -17,7 +17,7 @@ class Component(object):
 
     def locate(self):
         self.component = WebDriverWait(self.driver, 20)\
-            .until(EC.presence_of_element_located((By.CSS_SELECTOR, self.container_selector)))
+            .until(EC.element_to_be_clickable((By.CSS_SELECTOR, self.container_selector)))
 
     @property
     def is_located(self):

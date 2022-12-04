@@ -2,6 +2,9 @@ from pageobjects.pages.base import BasePage
 from pageobjects.components.header import Header
 from pageobjects.components.modal_desk import ModalDesk
 from tests.base_test_case import BaseTestCase
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 from utils.constants import authorization_data,urls,cookie_name,create_desc_errors
 
 class BaseTest(BaseTestCase):
@@ -34,14 +37,14 @@ class BaseTest(BaseTestCase):
     #     self.sign_up()
     #     self.page.btn_new_desk.click()
     #     ModalDesk.create(self.driver)
-    #     self.page.popup_new_desk_close_icon.click()
+    #     self.page.popup_icon_close
     #     self.assertEqual(self.page.popup_new_desk_check_active, False)
     
     # def test_close_popup_btn(self):
     #     self.sign_up()
     #     self.page.btn_new_desk.click()
     #     ModalDesk.create(self.driver)
-    #     self.page.popup_new_desk_close_btn.click()
+    #     self.page.popup_btn_close
     #     self.assertEqual(self.page.popup_new_desk_check_active, False)
 
     # def test_short_title(self):

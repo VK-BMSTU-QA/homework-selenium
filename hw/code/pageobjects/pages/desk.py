@@ -2,6 +2,9 @@ from selenium.webdriver.common.by import By
 from pageobjects.base.page import Page
 from pageobjects.components.modal_list import ModalList
 
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 class DeskPage(Page):
 
     @property
@@ -41,9 +44,23 @@ class DeskPage(Page):
     def btn_new_card(self):
         return self.driver.find_element(by=By.CLASS_NAME, value="desk__newButton")
     
+    def click_header(self):
+        self.driver.find_element(by=By.CLASS_NAME, value="taskBlock_header").click()
+
     @property
     def card_title(self):
         return self.driver.find_element(by=By.CLASS_NAME, value="desk__task-text")
+
+    @property
+    def task_title(self):
+        return self.driver.find_element(by=By.CLASS_NAME, value="taskBlock__title-input")
+
+    @property
+    def task_close(self):
+        return self.driver.find_element(by=By.CLASS_NAME, value="taskBlock__close")
+
+    def wait_texarea_value(self, text):
+        WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, f""".taskBlock__title-input[data-info="{text}"]""")))
 
     def create_list(self, title):
         self.btn_new_list.click()
@@ -66,3 +83,6 @@ class DeskPage(Page):
         if self.card_title.text == title:
             return True
         return False
+
+    def open_new_card(self):
+        self.driver.find_element(by=By.CLASS_NAME, value="desk__task-text").click()
