@@ -12,6 +12,7 @@ def get_register(browser):
     auth_page.go_to_site()
     return auth_page.go_to_register()
 
+
 def test_register_error_empty(browser):
     register_page = get_register(browser)
     kwargs = dict([(key, 'test') for key in register_page.data.keys()])
@@ -21,6 +22,7 @@ def test_register_error_empty(browser):
         register_page.register(**kw_new)
         assert func() is True
         assert len(register_page.get_error_messages()) == (2 if field in ['password', 'confirm_password'] else 1)
+
 
 def test_register_error_long(browser):
     register_page = get_register(browser)
@@ -32,17 +34,20 @@ def test_register_error_long(browser):
         assert func() is True
         assert len(register_page.get_error_messages()) == (2 if field in ['password', 'confirm_password'] else 1)
 
+
 def test_register_error_exists(browser):
     register_page = get_register(browser)
     register_page.register('test', 'test', LOGIN_EXISTS, 'test', 'test')
     assert register_page.is_login_error() is True
     assert len(register_page.get_error_messages()) == 1
 
+
 def test_register_error_badlogin(browser):
     register_page = get_register(browser)
     register_page.register('test', 'test', BADLOGIN, 'test', 'test')
     assert register_page.is_login_error() is True
     assert len(register_page.get_error_messages()) == 1
+
 
 def test_register_error_nopasswmatch(browser):
     register_page = get_register(browser)
@@ -51,9 +56,11 @@ def test_register_error_nopasswmatch(browser):
     assert register_page.is_confirm_password_error() is True
     assert len(register_page.get_error_messages()) == 2
 
+
 def test_register_cancel(browser):
     register_page = get_register(browser)
     register_page.go_back() # все assert'ы уже внутри метода
+
 
 def test_register_success(browser):
     register_page = get_register(browser)
@@ -70,6 +77,7 @@ def test_register_success(browser):
     assert register_page.is_redirected() is True
     register_page.driver.delete_all_cookies()
 
+
 def test_auth_error_empty(browser):
     auth_page = AuthPage(browser)
     auth_page.go_to_site()
@@ -78,11 +86,13 @@ def test_auth_error_empty(browser):
     assert auth_page.is_password_error() is True
     assert len(auth_page.get_error_messages()) == 2
 
+
 def test_auth_error_badpair(browser):
     auth_page = AuthPage(browser)
     auth_page.go_to_site()
     auth_page.login('test', 'testingtesting')
     assert len(auth_page.get_error_messages()) == 2
+
 
 def test_auth_error_long(browser):
     auth_page = AuthPage(browser)
@@ -92,6 +102,7 @@ def test_auth_error_long(browser):
     assert auth_page.is_password_error() is True
     assert len(auth_page.get_error_messages()) == 1
 
+
 def test_auth_error_badlogin(browser):
     auth_page = AuthPage(browser)
     auth_page.go_to_site()
@@ -100,11 +111,13 @@ def test_auth_error_badlogin(browser):
     assert auth_page.is_password_error() is False
     assert len(auth_page.get_error_messages()) == 1
 
+
 def test_auth_redirect(browser):
     auth_page = AuthPage(browser)
     auth_page.go_to_site()
     register_page = auth_page.go_to_register()
     assert register_page.is_loaded() is True
+
 
 def test_auth_success(browser):
     auth_page = AuthPage(browser)
