@@ -1,10 +1,7 @@
-import time
-
 from .base import BasePage
-from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from .locators.auth_reg import AuthLocators
-
+import pages.register as register
 
 class AuthPage(BasePage):
 
@@ -35,12 +32,11 @@ class AuthPage(BasePage):
         return self.is_url_endswith('income')
 
     def go_to_register(self):
-        from .register import RegisterPage
         register_button = self.find_element(AuthLocators.REGISTER_BUTTON)
         register_button.click()
-        register = RegisterPage(self.driver)
-        assert register.is_loaded()
-        return register
+        register_page = register.RegisterPage(self.driver)
+        assert register_page.is_loaded()
+        return register_page
 
     def is_loaded(self) -> bool:
         try:

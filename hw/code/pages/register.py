@@ -1,6 +1,7 @@
 from .base import BasePage
 from .locators.auth_reg import RegisterLocators
 from selenium.common.exceptions import TimeoutException
+import pages.auth as auth
 
 class RegisterPage(BasePage):
     
@@ -59,12 +60,11 @@ class RegisterPage(BasePage):
         return self.is_url_endswith('income')
 
     def go_back(self):
-        from .auth import AuthPage
         back_button = self.find_element(RegisterLocators.BACK_BUTTON)
         back_button.click()
-        auth = AuthPage(self.driver)
-        assert auth.is_loaded()
-        return auth
+        auth_page = auth.AuthPage(self.driver)
+        assert auth_page.is_loaded()
+        return auth_page
 
     def is_loaded(self) -> bool:
         try:
