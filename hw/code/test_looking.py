@@ -21,7 +21,7 @@ def test_success_reply(browser):
 
     outcoming_page = OutcomePage(browser)
     outcoming_page.go_to_site()
-    outcoming_page.go_to_look(0)
+    outcoming_page.go_to_look()
     outcoming_page.reply()
 
     assert outcoming_page.is_redirected('send')
@@ -40,12 +40,13 @@ def test_success_forward(browser):
 
     outcoming_page = OutcomePage(browser)
     outcoming_page.go_to_site()
-    outcoming_page.go_to_look(1)
+    outcoming_page.go_to_look()
     outcoming_page.forward()
 
     assert outcoming_page.is_redirected('send')
     assert outcoming_page.get_theme() == SAMPLE_MESSAGE.theme
     assert outcoming_page.get_address() == ''
+
 
 def test_success_delete(browser):
     auth_page = AuthPage(browser)
@@ -59,7 +60,7 @@ def test_success_delete(browser):
     outcoming_page = OutcomePage(browser)
     outcoming_page.go_to_site()
     prev = outcoming_page.list_count()
-    outcoming_page.go_to_look(2)
+    outcoming_page.go_to_look()
     outcoming_page.delete()
 
     assert outcoming_page.is_redirected('income')

@@ -11,16 +11,16 @@ load_dotenv()  # LOGIN and PASSWORD
 
 longs = [SendInfo('1 test address', '1 test long long long long long long long long long theme',
                                '1 test text'),
-SendInfo('1 test long long long long long long long long long address', '1 test theme',
-                                 '1 test text')]
+        SendInfo('1 test long long long long long long long long long address', '1 test theme',
+                                         '1 test text')]
 
 wrong_address = [SendInfo('', 'sda', ''), SendInfo('wrong_name', 'asd', '')]
 
-SAMPLE_EMPTY_MESSAGE = SendInfo(address='', theme='', text='1 test text')
-SAMPLE_MESSAGE = SendInfo(address='', theme='1 test theme', text='1 test text')
+SAMPLE_EMPTY_MESSAGE = SendInfo(address=os.getenv('LOGIN'), theme='', text='1 test text')
+SAMPLE_MESSAGE = SendInfo(address=os.getenv('LOGIN'), theme='1 test theme', text='1 test text')
 
 
-def test_wrong_adress_of_receiptor(browser):
+def test_wrong_address_of_recipient(browser):
     auth_page = AuthPage(browser)
     auth_page.go_to_site()
     auth_page.login(os.getenv('LOGIN'), os.getenv('PASSWORD'))
@@ -32,7 +32,7 @@ def test_wrong_adress_of_receiptor(browser):
         assert send_page.is_wrong()
 
 
-def test_create_message_empty(browser):
+def test_create_big_info_message_error(browser):
     auth_page = AuthPage(browser)
     auth_page.go_to_site()
     auth_page.login(os.getenv('LOGIN'), os.getenv('PASSWORD'))
@@ -52,14 +52,13 @@ def test_create_message_empty(browser):
     assert prev == after
 
 
-def test_empty_them(browser):
+def test_send_with_empty_theme(browser):
     auth_page = AuthPage(browser)
     auth_page.go_to_site()
     auth_page.login(os.getenv('LOGIN'), os.getenv('PASSWORD'))
 
     send_page = SendPage(browser)
     send_page.go_to_site()
-    SAMPLE_EMPTY_MESSAGE.address = os.getenv('LOGIN')
     send_page.create_message(SAMPLE_EMPTY_MESSAGE)
     assert send_page.is_dialog_appear()
 
@@ -75,7 +74,6 @@ def test_success_send(browser):
 
     send_page = SendPage(browser)
     send_page.go_to_site()
-    SAMPLE_MESSAGE.address = os.getenv('LOGIN')
     send_page.create_message(SAMPLE_MESSAGE)
 
     outcoming_page.go_to_site()

@@ -1,8 +1,3 @@
-import threading
-import time
-
-from selenium.webdriver import ActionChains
-
 from .base import BasePage
 
 from .locators.send import SendLocators
@@ -36,16 +31,14 @@ class SendPage(BasePage):
         text_input.send_keys(mes.text)
 
 
-    def create_message(self, mes, attach=''):
-        send_button = self.find_element(MenuLocators.SEND_BUTTON)
-        send_button.click()
+    def create_message(self, mes):
+        menu_send_button = self.find_element(MenuLocators.SEND_BUTTON)
+        menu_send_button.click()
 
         self.fill_message(mes)
 
         send_button = self.find_element(SendLocators.SEND_BUTTON)
         send_button.click()
-
-        time.sleep(1)
 
     def is_dialog_appear(self) -> bool:
         dialog = self.find_element(SendLocators.EMPTY_THEM_BUTTON)
@@ -53,5 +46,4 @@ class SendPage(BasePage):
 
     def is_wrong(self) -> bool:
         dialog = self.find_element(SendLocators.ERROR_BOX)
-        time.sleep(1)
         return dialog is not None
