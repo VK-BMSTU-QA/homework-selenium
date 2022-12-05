@@ -1,11 +1,12 @@
 import pytest
 from pages.auth import AuthPage
 import random
+import os
 
 LOGIN_EXISTS = 'test'
 BADLOGIN = 'тест'
 MAX_LENGTH = 45
-
+MAX_RETRIES = 5
 
 def get_register(browser):
     auth_page = AuthPage(browser)
@@ -64,13 +65,17 @@ def test_register_cancel(browser):
 
 def test_register_success(browser):
     register_page = get_register(browser)
-    while True:
+    retries = MAX_RETRIES
+    while retries > 0:
         login = ''.join(random.choices("abcdefghijklmnopqrstuvwxyz1234567890", k=10))
         pytest.login = login
         pytest.password = "test"
         register_page.register("test", "test", pytest.login, pytest.password, pytest.password)
         if not register_page.is_login_error():
             break
+        retries -= 1
+    else:
+        raise Exception("Can't find unique login")
     assert register_page.is_password_error() is False
     assert register_page.is_confirm_password_error() is False
     assert register_page.get_error_messages() == []
@@ -122,7 +127,7 @@ def test_auth_redirect(browser):
 def test_auth_success(browser):
     auth_page = AuthPage(browser)
     auth_page.go_to_site()
-    auth_page.login(pytest.login, pytest.password)
+    auth_page.login(os.environ.get('LOGIN'), os.environ.get('PASSWORD'))
     assert auth_page.is_login_error() is False
     assert auth_page.is_password_error() is False
     assert auth_page.get_error_messages() == []
