@@ -1,13 +1,16 @@
 import time
 from ui.locators import basic_locators
+
 from ui.pages.base_page import BasePage
 
-class MoviePage(BasePage):
 
+class MoviePage(BasePage):
     locators = basic_locators.MoviePageLocators()
-    url = 'https://movie-space.ru/movies'
+    url = 'https://movie-space.ru/movie/35'
 
     def open(self):
-        self.click(basic_locators.BasePageLocators.BUTTON_MOVIES, 10)
-        self.is_opened(self.url, 10)
-        time.sleep(1)
+        self.click(BasePage.locators.CARD, 10)
+        self.wait_visability_of_elem(
+            self.locators.RATING, 10
+        )
+
